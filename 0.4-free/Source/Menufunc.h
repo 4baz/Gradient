@@ -1,0 +1,20 @@
+#pragma once
+void spawn_vehicle(char* toSpawn);
+void animatePlayer(Player target, char* dict, char* anim);
+void PTFXCALL(char *call1, char *call2, char *name);
+void TPto(Vector3 Coords);
+void teleporttocoords(Player player, Vector3 target);
+void playerflyer(bool toggle);
+void RequestControlOfEnt(Entity entity);
+void RequestControlOfid(Entity netid);
+float degToRad(float degs);
+void killall();
+void kickallfromveh();
+void teleporttome(Player player);
+void attach(Player player);
+void detach();
+void clone(Player player);
+void cloneenemey(Player player);
+void pedcash(Player target);
+void bagcash(Player target);
+void instacrash(Player target);

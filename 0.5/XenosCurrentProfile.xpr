@@ -1,0 +1,20 @@
+<XenosConfig>
+	<imagePath>F:\GRADIENT GTA\0.6\Build\Release\SudoMod.dll</imagePath>
+	<manualMapFlags>0</manualMapFlags>
+	<procName>GTA5.EXE</procName>
+	<hijack>0</hijack>
+	<unlink>1</unlink>
+	<erasePE>1</erasePE>
+	<close>0</close>
+	<krnHandle>0</krnHandle>
+	<injIndef>0</injIndef>
+	<processMode>0</processMode>
+	<injectMode>0</injectMode>
+	<delay>0</delay>
+	<period>0</period>
+	<skip>0</skip>
+	<procCmdLine/>
+	<initRoutine/>
+	<initArgs/>
+</XenosConfig>
+
