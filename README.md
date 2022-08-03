@@ -1,49 +1,60 @@
 # Gradient
 
-https://discord.gg/3QRv33
-
-skidded *shrug*
-
-
-Credits:
+https://discord.gg/2fwhZVbREv
 
 
 
-# README (for 0.4.1) #
+Gradient and its successor Wirra-Way
 
-please ignore the messy code. I will clean it when i can be fucked
-
-This is the repo for gradient GTA a private mod menu made for gta online. 
-
-tbh im not sure if im ever going to release it. but if i do it will probably be on uc
+all of my "working" shit skid mod menus for gta5.
 
 
-# README (for 0.5.0 and above) #
-
-0.5.0 is a modified version of job menu/opalbeats
-
-I am slowly re-writing some of the job stuff because personally i dont like it
+Compiled release binary works in game version 1.61. Same version as uploaded on UC.
 
 
+Every menu here is heavily skidded. Im not proud of or endourse any of the practices employed here. 
+
+Everything in the LEGACY folder is essentially a show of my attempts at learning to code at 14. Wouldn't say im proud of any of it
+
+
+Wirra-Way was my attempt at  learning to get back into gta modding as a result i used YimMenu as a "base". But turns out it was easier to call YimMenus functions from my ui then make my own. Making this was no longer fun and as a result im open sourcing all my shitty "work"
+
+
+if you want a native UI from 2017 thats worse than stuff like bigbase in every way feel free to use i guess. 
+All 1.61 UI files are contained within the "NAtivePortable" folder, add to your project call the main function from NATIVEbase.h from within your main loop. I wouldnt use this though. Its terrible Ui code that has been hacked up over 5 years.
+
+<3 from 4baz :)
 
 
 
 # credits #
 
-Infamous Dev team for sudomod
+Infamous Dev team - sudomod
 
-2much4u for his ps3 base (now this im actually proud of i didn't skid this i ported it without any help)
+2much4u - ps3 sprx base
 
-opal for slothority & opalbeats
+Bydgie/Salted - swagged base (UI and Gradient v5>)
 
 Alexander Blade
 
-sudo, wawixs and taranVG for teaching me how to get sigs
+sudo, wawixs and taranVG
 
-davidZ for giving me a few tips on what got detected after rockstar fucked with the backend in 1.40
+davidZ 
 
-The rest of the poopstar devs.
+og "poopstar" devs server.
 
-the guys who made nano42 lmao skidded the hook code 
+nano42
 
-if i missed anyone pm me on discord or whatever
+Mafins
+
+Pocakking
+
+Yimura
+
+-everyone that supported me throught the years, idk why you even believe in me.
+
+
+
+-------------------
+
+Robust menu was dogshit.
