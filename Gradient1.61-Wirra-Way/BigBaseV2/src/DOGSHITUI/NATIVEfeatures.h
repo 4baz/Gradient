@@ -4,7 +4,7 @@
 
 void FeatureLoop();
 void OpenEspColourMenu();
-
+void upgradeBase(Vehicle vehicle, int* engine, int* transmission, int* brakes, int* suspension, int* armour);
 static int veh_armor;
 static int veh_engine;
 static int veh_brakes;
@@ -21,3 +21,17 @@ static int veh_wheels;
 static int veh_fbumper;
 static int veh_rbumper;
 static int veh_plate;
+
+
+namespace IPLS {
+
+
+	void CAYOPERICO();
+
+	void YANKTON();
+
+	void CARRIER();
+
+	void FARM();
+
+};

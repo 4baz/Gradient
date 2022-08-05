@@ -333,6 +333,10 @@ enum BikeWheels
 
 enum VehicleModType
 {
+    //baz added
+
+
+
     MOD_SPOILERS,
     MOD_FRONTBUMPER,
     MOD_REARBUMPER,

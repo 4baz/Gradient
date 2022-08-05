@@ -1,26 +1,30 @@
-- [ ] **TDD** 
 
-New/modified code must be backed down with unit test - preferably TDD style development)
+# PULL REQUEST DESCRIPTION
 
+`ADD CONTENT HERE TO DESCRIBE THE PURPOSE OF THE PULL REQUEST`
 
-- [ ] **Documentation**
+# Testing
 
-All new/modified functionality should be backed up with API documentation (API.markdown or README.markdown)
+- [ ] This new/modified code was covered by unit tests. 
 
+- [ ] (insight) Was all tests written using TDD (Test Driven Development) style?
 
-**Cross-Platform Testing**
-- [ ] Travis-CI (Linux, OSX) + AppVeyor-CI (Windows)\
-- [ ] *Optional:* Local/VM testing: Windows
-- [ ] *Optional:* Local/VM testing: OSX
-- [ ] *Optional:* Local/VM testing: Linux
+- [ ] The CI (Windows, Linux, OSX) are working without issues. 
 
+- [ ] Was new functionality documented? 
 
-**Testing Advice**
+- [ ] The testing steps  1 - 2 below were followed
+
+_step 1_
+
 ```bash 
 mkdir build; cd build; cmake -DADD_G3LOG_UNIT_TEST=ON ..
+
+// linux/osx alternative, simply run: ./scripts/buildAndRunTests.sh
 ```
 
-**Run Test Alternatives:** 
+_step 2: use one of these alternatives to run tests:_
+
 - Cross-Platform: `ctest`
 - or `ctest -V` for verbose output
 - Linux: `make test`

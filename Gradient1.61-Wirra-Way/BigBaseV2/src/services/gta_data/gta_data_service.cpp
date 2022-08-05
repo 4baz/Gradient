@@ -11,21 +11,7 @@ namespace big
 		m_ped_file(g_file_manager->get_project_file("./lib/peds.json")),
 		m_ped_file_etag(g_file_manager->get_project_file("./lib/peds_etag.txt"))
 	{
-		load_from_file(
-			m_vehicle_file,
-			m_vehicle_file_etag,
-			"http://github-proxy.damon.sh/DurtyFree/gta-v-data-dumps/master/vehicles.json",
-			&gta_data_service::load_vehicles,
-			"Vehicle"
-		);
-
-		load_from_file(
-			m_ped_file,
-			m_ped_file_etag,
-			"http://github-proxy.damon.sh/DurtyFree/gta-v-data-dumps/master/peds.json",
-			&gta_data_service::load_ped,
-			"Ped"
-		);
+		
 
 		g_gta_data_service = this;
 	}
@@ -108,19 +94,9 @@ namespace big
 		g_thread_pool->push([this, file_to_load, file_etag, url, load_func, data_name]() {
 			for (int retry = 0; retry < 2; retry++)
 			{
-				bool ret = remote::update_binary(
-					url,
-					file_to_load.get_path(),
-					file_etag.get_path()
-				);
+				
 
-				if (ret)
-				{
-					(this->*load_func)();
-					LOG(INFO) << "Data updated: " + data_name;
-					break;
-				}
-				else if (!m_vehicle_file.exists())
+				 if (!m_vehicle_file.exists())
 				{
 					LOG(WARNING) << "Failed to download data: " + data_name;
 				}

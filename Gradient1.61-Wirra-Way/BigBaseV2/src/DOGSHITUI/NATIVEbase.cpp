@@ -158,8 +158,8 @@ void submenuHandler()
 	case SUB::PLAYER: sub::player(); break;
 	case SUB::WEAPONS: sub::weapons(); break;
 	case SUB::TELEPORTS: sub::teleport(); break;
-//	case SUB::PTFX: sub::ptfx(); break;
-//	case SUB::ANIMATIONS: sub::animations(); break;
+	case SUB::PTFX: sub::ptfx(); break;
+	case SUB::ANIMATIONS: sub::animations(); break;
 	case SUB::PLAYERLIST: sub::playerList(); break;
 	case SUB::SELPLAYER: sub::selplayer(); break;
 	case SUB::PROTECTIONS: sub::PROTECTIONS(); break;
@@ -446,20 +446,20 @@ void AddOption2( char* option, char* string, const char* info)
 	if (currentOption == optionCount) {
 
 		if (currentOption <= maxOptions && optionCount <= maxOptions)
-			drawText2(string, optionsFont, (0.108f + (XValue)), (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, 255, 2, false);
+			drawText2(string, optionsFont, mnux + (0.108f + (XValue)), mnuy + (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, 255, 2, false);
 
 		else if ((optionCount > (currentOption - maxOptions)) && optionCount <= currentOption)
-			drawText2(string, optionsFont, (0.108f + (XValue)), ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, 255, 2, false);
+			drawText2(string, optionsFont, mnux + (0.108f + (XValue)), mnuy + ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, 255, 2, false);
 
 	}
 
 	else {
 
 		if (currentOption <= maxOptions && optionCount <= maxOptions)
-			drawText2(string, optionsFont, (0.108f + (XValue)), (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, 2, false);
+			drawText2(string, optionsFont, mnux + (0.108f + (XValue)), mnuy + (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, 2, false);
 
 		else if ((optionCount > (currentOption - maxOptions)) && optionCount <= currentOption)
-			drawText2(string, optionsFont, (0.108f + (XValue)), ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, 2, false);
+			drawText2(string, optionsFont, mnux + (0.108f + (XValue)), mnuy + ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, 2, false);
 
 	}
 }
@@ -474,20 +474,20 @@ void AddOption2( char* option, const char* info = NULL)
 		infoText = info;
 
 		if (currentOption <= maxOptions && optionCount <= maxOptions)
-			drawText2(optionTextToAdd, optionsFont, mainTextX - 0.108f, (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, optionsOpacity, optionCenter, false);
+			drawText2(optionTextToAdd, optionsFont, mnux + mainTextX - 0.108f, mnuy + (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, optionsOpacity, optionCenter, false);
 
 		else if ((optionCount > (currentOption - maxOptions)) && optionCount <= currentOption)
-			drawText2(optionTextToAdd, optionsFont, mainTextX - 0.108f, ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, optionsOpacity, optionCenter, false);
+			drawText2(optionTextToAdd, optionsFont, mnux + mainTextX - 0.108f, mnuy + ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, highlightRed, highlightGreen, highlightBlue, optionsOpacity, optionCenter, false);
 	}
 
 	//Makes other options the colour, that you choose.
 	else {
 
 		if (currentOption <= maxOptions && optionCount <= maxOptions)
-			drawText2(optionTextToAdd, optionsFont, mainTextX - 0.108f, (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, optionCenter, false);
+			drawText2(optionTextToAdd, optionsFont, mnux + mainTextX - 0.108f, mnuy + (optionCount * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, optionCenter, false);
 
 		else if ((optionCount > (currentOption - maxOptions)) && optionCount <= currentOption)
-			drawText2(optionTextToAdd, optionsFont, mainTextX - 0.108f, ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, optionCenter, false);
+			drawText2(optionTextToAdd, optionsFont, mnux + mainTextX - 0.108f, mnuy + ((optionCount - (currentOption - maxOptions)) * 0.035f + mainTextY), 0.35f, 0.35f, optionsRed, optionsGreen, optionsBlue, optionsOpacity, optionCenter, false);
 
 	}
 }
@@ -740,6 +740,44 @@ void AddInt(const char* option, int* inttochange, int min, int max, int incremen
 	}
 }
 
+bool AddIntTEST(const char* option, int* inttochange, int min, int max, int increments, const char* info = NULL)
+{
+	char buf[30];
+
+	snprintf(buf, sizeof(buf), "[%i]", *inttochange);
+
+	AddOption(option, buf, info);
+
+	if (currentOption == optionCount) {
+
+		if (GetAsyncKeyState(VK_RIGHT) & 1) {
+
+			PlayFrontendSound("NAV_UP_DOWN");
+
+			if (*inttochange >= max)
+				*inttochange = min;
+
+			else
+				*inttochange = *inttochange + increments;
+		}
+
+		else if (GetAsyncKeyState(VK_LEFT) & 1) {
+			PlayFrontendSound("NAV_UP_DOWN");
+
+			if (*inttochange <= min)
+				*inttochange = max;
+
+			else
+				*inttochange = *inttochange - increments;
+		}
+		else if (GetAsyncKeyState(VK_RETURN) & 1) {
+			return true;
+		}
+		return false;
+	}
+}
+
+
 //Our float changer
 void AddFloat(const char* option, float* floattochange, float min, float max, float increments, const char* info = NULL)
 {
@@ -770,7 +808,7 @@ void AddFloat(const char* option, float* floattochange, float min, float max, fl
 }
 
 //Our string selector function whatever
-void AddString(char* optiontext,char* option, int* var, int min, int max,const  char* info = NULL)
+void AddString( char *optiontext,  char* option, int *var, int min, int max,const  char *info = NULL)
 {
 	char buf[30];
 	sprintf(buf, "< %s >", option);
@@ -946,7 +984,7 @@ void AddKmsSwitch(int* inttochange, int min, int max, int increments, const char
 
 
 //Our string selector function whatever with execution
-void AddString( char* optiontext, char* option, int* var, int min, int max, std::function<void()> callback, const char* info = NULL)
+void AddString( char* optiontext,  char* option, int* var, int min, int max, std::function<void()> callback, const char* info = NULL)
 {
 	AddString(optiontext, option, var, min, max, info);
 	if (currentOption == optionCount && (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(VK_RIGHT)) & 1)
@@ -961,8 +999,10 @@ bool friendCheck(Player player) {
 	}
 	return false;
 }
+
+
 /*
-void AddString(char *optiontext, char* option, int *var, int min, int max, std::function<void()> function, char *info = NULL)
+void AddString(const char *optiontext,const char* option, int *var, int min, int max, std::function<void()> function,const char *info = NULL)
 {
 char buf[30];
 sprintf(buf, "< %s >", option);
@@ -1707,6 +1747,46 @@ void ClosedMonitor()
 		submenuLevel = 0;
 		currentOption = 1;
 
+	}
+}
+
+
+void PTFXCALLO(char* call1, char* call2, char* name, Player target)
+{
+	Ped user = PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(target);
+//	call1o = call1;
+//	call2o = call2;
+	//nameo = name;
+	//PTLoopPed = user;
+	STREAMING::REQUEST_NAMED_PTFX_ASSET(call1);
+	GRAPHICS::USE_PARTICLE_FX_ASSET(call2);
+	GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY(name, user, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.0, false, false, false);
+
+}
+bool Control(int vehID)
+{
+	int Tries = 0;
+	bool
+		hasControl = false,
+		giveUp = false;
+	do
+	{
+		hasControl = NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(vehID);
+		Tries++;
+		if (Tries > 300)
+			giveUp = true;
+	} while (!hasControl && !giveUp);
+
+	return !giveUp;
+}
+void PlayerAnimation(char* anim, char* animid)
+{
+	int pPlayer = PLAYER::PLAYER_PED_ID();
+	Control(pPlayer);
+	STREAMING::REQUEST_ANIM_DICT(anim);
+	if (STREAMING::HAS_ANIM_DICT_LOADED((anim)))
+	{
+		TASK::TASK_PLAY_ANIM(pPlayer, anim, animid, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
 }
 

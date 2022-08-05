@@ -1552,6 +1552,10 @@ namespace HUD
 	static const char* GET_TEXT_SUBSTRING_SAFE_(const char* text, int position, int length, int maxLength) { return invoke<const char*>(0xB2798643312205C5, text, position, length, maxLength); } // 0xB2798643312205C5 0x0183A66C b323
 	static const char* GET_TEXT_SUBSTRING_SLICE_(const char* text, int startPosition, int endPosition) { return invoke<const char*>(0xCE94AEBA5D82908A, text, startPosition, endPosition); } // 0xCE94AEBA5D82908A 0xFA6373BB b323
 	static const char* GET_LABEL_TEXT_(const char* labelName) { return invoke<const char*>(0x7B5280EBA9840C72, labelName); } // 0x7B5280EBA9840C72 0x95C4B5AD b323
+	
+	static  char* GET_LABEL_TEXT_2(const char* labelName) { return invoke< char*>(0x7B5280EBA9840C72, labelName); } // 0x7B5280EBA9840C72 0x95C4B5AD b323
+
+	
 	static void CLEAR_PRINTS() { invoke<void>(0xCC33FA791322B9D9); } // 0xCC33FA791322B9D9 0x216CB1C5 b323
 	static void CLEAR_BRIEF() { invoke<void>(0x9D292F73ADBD9313); } // 0x9D292F73ADBD9313 0x9F75A929 b323
 	static void CLEAR_ALL_HELP_MESSAGES() { invoke<void>(0x6178F68A87A4D3A0); } // 0x6178F68A87A4D3A0 0x9E5D9198 b323
@@ -6178,6 +6182,14 @@ namespace VEHICLE
 	static const char* GET_MOD_TEXT_LABEL(Vehicle vehicle, int modType, int modValue) { return invoke<const char*>(0x8935624F8C5592CC, vehicle, modType, modValue); } // 0x8935624F8C5592CC 0x0BA39CA7 b323
 	static const char* GET_MOD_SLOT_NAME(Vehicle vehicle, int modType) { return invoke<const char*>(0x51F0FEB9F6AE98C0, vehicle, modType); } // 0x51F0FEB9F6AE98C0 0x5E113483 b323
 	static const char* GET_LIVERY_NAME(Vehicle vehicle, int liveryIndex) { return invoke<const char*>(0xB4C7A93837C91A1F, vehicle, liveryIndex); } // 0xB4C7A93837C91A1F 0xED80B5BE b323
+	
+	
+	static  char* GET_MOD_TEXT_LABEL2(Vehicle vehicle, int modType, int modValue) { return invoke< char*>(0x8935624F8C5592CC, vehicle, modType, modValue); } // 0x8935624F8C5592CC 0x0BA39CA7 b323
+	static  char* GET_MOD_SLOT_NAME2(Vehicle vehicle, int modType) { return invoke< char*>(0x51F0FEB9F6AE98C0, vehicle, modType); } // 0x51F0FEB9F6AE98C0 0x5E113483 b323
+	static  char* GET_LIVERY_NAME2(Vehicle vehicle, int liveryIndex) { return invoke< char*>(0xB4C7A93837C91A1F, vehicle, liveryIndex); } // 0xB4C7A93837C91A1F 0xED80B5BE b323
+
+
+
 	static int GET_VEHICLE_MOD_MODIFIER_VALUE(Vehicle vehicle, int modType, int modIndex) { return invoke<int>(0x90A38E9838E0A8C1, vehicle, modType, modIndex); } // 0x90A38E9838E0A8C1 0x73AE5505 b323
 	static Hash GET_VEHICLE_MOD_IDENTIFIER_HASH(Vehicle vehicle, int modType, int modIndex) { return invoke<Hash>(0x4593CF82AA179706, vehicle, modType, modIndex); } // 0x4593CF82AA179706 0x94850968 b323
 	static void PRELOAD_VEHICLE_MOD(Any p0, int modType, Any p2) { invoke<void>(0x758F49C24925568A, p0, modType, p2); } // 0x758F49C24925568A 0x6EA5F4A8 b323

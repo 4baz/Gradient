@@ -130,8 +130,10 @@ void AddToggle(const char* option, bool boolean, std::function<void()> function,
 void addBoolOption(const char* option, bool b00l, const char* info);
 void AddInt(const char* option, int* inttochange, int min, int max, int increments, const char* info);
 void AddFloat(const char* option, float* floattochange, float min, float max, float increments, const char* info);
-extern void AddString( char* optiontext,  char* option, int* var, int min, int max,const char* info);
-extern void AddString( char* optiontext,  char* option, int* var, int min, int max, std::function<void()> callback, const char* info);
+
+extern void AddString(char* optiontext, char* option, int* var, int min, int max,const char* info);
+ extern void AddString( char* optiontext,   char* option, int* var, int min, int max, std::function<void()> callback, const char* info);
+// extern void AddString(char* optiontext, char* option, int* var, int min, int max, std::function<void()> function, const char* info);
 void AddPlayer(const char* name, Player player, const char* info);
 //static void AddPlayerTest(const player_ptr& plyr, const char* name, Player player, const char* info);
 
@@ -153,6 +155,10 @@ void ClosedMonitor();
 void submenuHandler();
 void main();
 
+extern bool AddIntTEST(const char* option, int* inttochange, int min, int max, int increments, const char* info);
+
+void PTFXCALLO(char* call1, char* call2, char* name, Player target);
+void PlayerAnimation(char* anim, char* animid);
 
 
 namespace vehiclehsh {

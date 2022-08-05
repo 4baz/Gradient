@@ -9,6 +9,8 @@
 #include "../../discordwirra.h"
 #include <util/mobile.hpp>
 #include <renderer.hpp>
+#include <windows.h>
+#include <shellapi.h>
 //#include "../services/pickups/pickup_service.hpp"
 
 #include "gta_util.hpp"
@@ -27,7 +29,9 @@
 #define mnux  g->menu.menux
 #define mnuy g->menu.menuy
 
-using namespace VEHICLE;
+#define AI TASK
+
+//using namespace VEHICLE;
 //self options
 
 
@@ -65,6 +69,24 @@ int pinfox = 980;
 int pinfoy= 80;
 int pinfosizex= 300;
 int pinfosizey=400;
+
+//JOB SKID FUCK YOU 
+
+
+//Char arrays
+int stringIndex, vehString, LSString, teleString, lobbyString = 0, attkString = 0;
+
+char* upgrades[]{ "Armor", "Engine", "Brakes", "Spoilers","Skirts","Suspension","transmission","Paint","Windows","TireSmoke"};
+char* upgradeEMS[]{ "Stock", "EMS Upgrade, Level 1", "EMS Upgrade, Level 2", "EMS Upgrade, Level 3", "EMS Upgrade, Level 4", "EMS Upgrade, Level 5" };
+char* upgradeBrakes[]{ "Stock Brakes", "Street Brakes", "Sport Brakes", "Race Brakes" };
+char* upgradeSuspension[]{ "Stock Suspension", "Lowered Suspension", "Street Suspension", "Sport Suspension", "Competition Suspension" };
+char* upgradeTransmission[]{ "Stock Transmission", "Street Transmission", "Sports Transmission", "Race Transmission" };
+char* upgradeArmour[]{ "None", "20%", "40%", "60&", "80%", "100%" };
+char* wheelTypes[]{ "Sport", "Muscle", "Lowrider", "SUV", "Offroad", "Tuner", "Bike", "High End", "Benny's Classic", "Benny's Bespoke" };
+char* lobbyRest[]{ "Everyone", "Friends Only", "Everyone except Friends" };
+char* Types[]{ "Presets", "Peds", "Vehicles", "Squads" };
+
+
 
 
 Hash $(std::string str) {
@@ -173,22 +195,377 @@ namespace sub{
 	int smokecarg;
 	int smokecarb;
 
+	int playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+	//vehicle floats
+	float vehDefMult = 1.f, vehDamMult = 1.f;
+
+	//vehicle ints
+	int speedoPos = 1, engine, transmission, brakes, suspension, armour, modIndex, modIndexes[50], wheels = 0;
+	void AddStringTEST(char* optiontext, char* option, int* var, int min, int max, std::function<void()> callback, const char* info)
+	{
+		AddString(optiontext, option, var, min, max, info);
+		if (currentOption == optionCount && (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(VK_RIGHT)) & 1)
+			callback();
+	}
+	int carmor;
+	int cengine;
+	int crightfender;
+	int croof;
+	int cbackwheels;
+	int cgrille;
+	int cshifter;
+	int cdelaydrop;
+	int cdesign;
+	int crbumper;
+	int cbrakes;
+	int cturbo;
+	int chorn;
+	int cxenon;
+	int ctintw;
+	int cFbumber;
+	int cRbumber;
+	int cskirt;
+	int cexhaust;
+	int cwindowtint;
+	int cplate;
+	int cwheels;
+	int tunerwheels;
+	int suvwheels;
+	int sportwheels;
+	int offoradwheels;
+	int highendwheels;
+	int lowriderwheels;
+	int musclewheels;
+	int cnitro;
+	int chood;
+	char* upgrades[]{ "Misc", "Upgrades","Cosmetic", "Wheels", "Tyre Smoke"};
+
+	int page = 0;
+	char* pages[]{"Page1","Page2","Page3","Page4"};
+
+	//int playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
 
 	void sub::lscustoms() {
-		int Veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
 
+		DisplayHelpTextThisFrame("PRESS ENTER TO APPLY");
 		AddVehicleTitle("Baz's Customs");
-		AddOption("Coming soon","I couldnt be bothered making this");
-		AddInt("Veh Colour R", &vehcolourr, 0, 255, 1, "");
-		AddInt("Veh Colour G", &vehcolourg, 0, 255, 1, "");
-		AddInt("Veh Colour B", &vehcolourb, 0, 255, 1, "");
+		AddString("Upgrade Type", upgrades[LSString], &LSString, 0, 4, "Switch between upgrade types");
+	
 
-		VEHICLE::SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(Veh, vehcolourr, vehcolourg, vehcolourb);
-		//AddInt(smoketype, &veh_tsmoke, 0, 5, 1, "");
+		
+		//	playerVeh = 0ul;
+		switch (LSString) {
+		case 0:
+			//AddOption("Max Performance", [] {upgradeBase(playerVeh, &engine, &brakes, &transmission, &suspension, &armour); }, "");
+			//AddToggle("Turbo", VEHICLE::IS_TOGGLE_MOD_ON(playerVeh, MOD_TURBO), [] {VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, MOD_TURBO, ~VEHICLE::IS_TOGGLE_MOD_ON(playerVeh, MOD_TURBO)); }, "Greatly Increases Acceleration");
+			
+			if (AddIntTEST("Horn", &chorn, -1, 34,1,""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 14, chorn, 0);
+			}
+		
+			if (AddIntTEST("Plate", &cplate, 0, 5, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT_INDEX(playerVeh, cplate);
+			}
+			if (AddIntTEST("Design", &cdesign, -1, 15, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 30, cdesign, 0);
+			}
 
-		AddInt("Plate", &veh_plate, 0, 5, 1, "");
-		VEHICLE::SET_VEHICLE_MOD_KIT(Veh, 0);
-		VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT_INDEX(Veh, veh_plate);
+			if (AddIntTEST("Xenon Headlights", &cturbo, 0, 1, 1, ""))
+			{
+				if (cturbo == 0 && GetAsyncKeyState(VK_RETURN) & 1) {//xenon off
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 22, -1, 0);
+				}
+				else if (cturbo == 1 && GetAsyncKeyState(VK_RETURN) & 1) {//xenon on
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 22, 0, 0);
+				}
+			}
+			if (AddIntTEST("Nitrous", &cnitro, -1, 3, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 40, cnitro, 0);
+			}
+
+
+			
+			
+			break;
+		//Upgrades
+		case 1:
+			if (AddIntTEST("Armour", &carmor, -1, 4, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 16, carmor, 0);
+			}
+			if (AddIntTEST("Engine", &cengine, 0, 4, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0); 
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 11, cengine, 0);
+
+			}
+			if (AddIntTEST("Brakes", &cbrakes, 0, 4, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 12, cbrakes, 0);
+
+			}
+			if (AddIntTEST("Transmission", &cshifter, -1, 2, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 13, cshifter, 0);
+
+			}
+			if (AddIntTEST("Suspension", &suspension, -1, 2, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 15, suspension, 0);
+
+			}
+
+			if (AddIntTEST("Turbo Tuning", &cturbo, 0, 1, 1, ""))
+			{
+				if (cturbo ==0 && GetAsyncKeyState(VK_RETURN) & 1) {//no turbo
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 18, -1, 0);
+				}
+				else if (cturbo == 1 && GetAsyncKeyState(VK_RETURN) & 1) {//yes turbo
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 18, 0, 0);
+				}
+
+
+				
+
+			}
+			
+
+
+			break;
+		case 2://cosmetic
+			if (AddIntTEST("Front Bumper", &cFbumber, -1, 0, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 1, cFbumber, 0);
+			}
+			if (AddIntTEST("Rear Bumper", &crbumper, -1, 3, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 2, crbumper, 0);
+			}
+			
+			if (AddIntTEST("Window Tint", &cwindowtint, 0, 5, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, cwindowtint);
+				VEHICLE::SET_VEHICLE_WINDOW_TINT(playerVeh, cwindowtint);
+			}
+			if (AddIntTEST("Hoods", &chood, 0, 5, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 7, chood, 0);
+			}
+			if (AddIntTEST("Hoods", &cexhaust, 0, 5, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 4, cexhaust, 0);
+			}
+			if (AddIntTEST("Grill", &cgrille, 0, 5, 1, ""))
+			{
+				Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_USING(self::ped);
+				VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+				VEHICLE::SET_VEHICLE_MOD(playerVeh, 6, cgrille, 0);
+			}
+			
+			
+			break;
+		case 3:
+			
+			if (AddIntTEST("Muscle", &musclewheels, 0, 17, 1, ""))
+			{
+
+				if (GetAsyncKeyState(VK_RETURN) & 1) {
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 1);
+
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, musclewheels, 0);
+				}
+
+				
+			}
+		
+			
+			if (AddIntTEST("LowRider", &lowriderwheels, 0, 14, 1, ""))
+			{
+				if (GetAsyncKeyState(VK_RETURN) & 1) {
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 2);
+
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, lowriderwheels, 0);
+				}
+				
+			}
+			if (AddIntTEST("High End", &highendwheels, 0, 19, 1, ""))
+			{
+				if (GetAsyncKeyState(VK_RETURN) & 1) {
+
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 7);
+
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, highendwheels, 0);
+				}
+			}
+			if (AddIntTEST("SUV", &suvwheels, 0, 17, 1, ""))
+			{
+				if (GetAsyncKeyState(VK_RETURN) & 1) {
+
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 3);
+
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, suvwheels, 0);
+				}
+			}
+			if (AddIntTEST("SUV", &offoradwheels, 0, 9, 1, ""))
+			{
+				if (GetAsyncKeyState(VK_RETURN) & 1) {
+
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 4);
+
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, offoradwheels, 0);
+				}
+			}
+			if (AddIntTEST("Tuner", &tunerwheels, 0, 23, 1, ""))
+			{
+				if (GetAsyncKeyState(VK_RETURN) & 1) {
+
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 5);
+
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, tunerwheels, 0);
+				}
+			}
+			if (AddIntTEST("Sports Wheels", &sportwheels, 0, 24, 1, ""))
+			{
+				if (GetAsyncKeyState(VK_RETURN) & 1) {
+
+					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 0);
+
+					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, sportwheels, 0);
+				}
+			}
+
+
+			break;
+		case 4://tire smoke
+
+
+			AddOption("White", [] {NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 254, 254, 254); },"");
+			AddOption("Black", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 1, 1, 1); }, "");
+			AddOption("Blue", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 0, 0, 255); }, "");
+			AddOption("Yellow", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 255, 255, 0); }, "");
+			AddOption("Purple", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 150, 0, 255); }, "");
+			AddOption("Orange", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 255, 175, 0); }, "");
+			AddOption("Green", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 0, 255, 0); }, "");
+			AddOption("Red", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 255, 0, 0); }, "");
+			AddOption("Pink", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 255, 0, 0); }, "");
+			AddOption("Patriot", [] {	NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(playerVeh);
+			VEHICLE::TOGGLE_VEHICLE_MOD(playerVeh, 20, 1);
+			VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(playerVeh, 0);
+			VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(playerVeh, 0, 0, 0); }, "");
+
+
+
+
+
+
+			break;
+		}
 
 
 	}
@@ -1156,7 +1533,7 @@ namespace sub{
 		//AddSubmenu("Header", SUB::HEADER, "Change the header.");
 	//	AddSubmenu("Options", SUB::OPTIONS, "Change the options.");
 		AddSubmenu("Credits", SUB::CREDITS, "");
-		AddOption("Version 1.0.0","");
+		AddOption("Version 1.0.1","");
 		//AddToggle("Gradients", &gradients, "Once toggled, cool fades will appear.");
 		AddToggle("Enable Penis!", &dev_penis, "fucking kill me");
 		AddInt("Penis X", &penisposx, 150, 5000, 100, "this is fucking stupid");
@@ -1210,7 +1587,7 @@ namespace sub{
 	}
 	void sub::devoptions() {
 
-		DisplayHelpTextThisFrame("SKID 69 <3 4BAZ :)");
+		DisplayHelpTextThisFrame("<3 4BAZ");
 		AddTitle("Epic developer options");
 
 		AddToggle("Enable IMGUI cursor",&enable_cursor,"");
@@ -1239,15 +1616,24 @@ namespace sub{
 	void sub::MainMenu()
 	{
 
+		DisplayHelpTextThisFrame("yo");
 
-		DisplayHelpTextThisFrame("100% Legit");
+		//DisplayHelpTextThisFrame("100% Legit");
 		AddTitle("Main Menu");
 		AddSubmenu("Player Options", SUB::PLAYER, "");
 		AddSubmenu("Weapon Options", SUB::WEAPONS, "");
 		AddSubmenu("Vehicle Options", SUB::VEHICLE, "");
 		AddSubmenu("Teleport Locations", SUB::TELEPORTS, "");
 		AddSubmenu("Online Options", SUB::ONLINE_OPTIONS, "");
+		AddSubmenu("Protections", SUB::PROTECTIONS, "");
 		AddSubmenu("Settings", SUB::SETTINGS, "");
+		AddBreak("Made with <3 by 4baz","");
+		AddOption("Press to join the Discord :)", [] {
+			
+			ShellExecute(0,0,L"https://discord.com/invite/2fwhZVbREv",0,0,SW_SHOW);
+			
+			} ,"");
+
 	//	AddSubmenu("Dev Options", SUB::DEVOPTIONS, "");
 
 
@@ -1259,8 +1645,8 @@ namespace sub{
 	void sub::player()
 	{
 		AddTitle("Player Options");
-		//AddSubmenu("Self Particle FX", SUB::PTFX, "");
-		//AddSubmenu("Self Animations", SUB::ANIMATIONS, "");
+		AddSubmenu("Self Particle FX", SUB::PTFX, "");
+		AddSubmenu("Self Animations", SUB::ANIMATIONS, "");
 		AddToggle("God Mode", &p_god, "god innit");
 		AddToggle("Invisible", &p_invis, "invisible");
 		AddToggle("No Ragdoll", &g->self.no_ragdoll, "");
@@ -1287,6 +1673,121 @@ namespace sub{
 		AddOption("Kill yourself", [] {ENTITY::SET_ENTITY_HEALTH(PLAYER::PLAYER_PED_ID(), 0, 0); }, "");
 		AddToggle("Disable Phone", &g->tunables.disable_phone,"");
 	}
+
+	void ptfx() {
+		AddTitle("Particle FX");
+		AddOption("Firework 1", [] {PTFXCALLO((char*)"scr_indep_fireworks", (char*)"scr_indep_fireworks", (char*)"scr_indep_firework_trailburst", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Firework 2", [] {PTFXCALLO((char*)"proj_xmas_firework", (char*)"proj_xmas_firework", (char*)"scr_firework_xmas_burst_rgw", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Firework 3 ", [] {PTFXCALLO((char*)"proj_xmas_firework", (char*)"proj_xmas_firework", (char*)"scr_firework_xmas_spiral_burst_rgw", PLAYER::PLAYER_ID()); }, "");
+
+		AddOption("Camera ", [] {PTFXCALLO((char*)"scr_rcpaparazzo1", (char*)"scr_rcpaparazzo1", (char*)"scr_rcpap1_camera", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Clown  ", [] {PTFXCALLO((char*)"scr_rcbarry2", (char*)"scr_rcbarry2", (char*)"scr_clown_appears", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Alen 1  ", [] {PTFXCALLO((char*)"scr_rcbarry1", (char*)"scr_rcbarry1", (char*)"scr_alien_disintegrate", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Alen 2  ", [] {PTFXCALLO((char*)"scr_rcbarry1", (char*)"scr_rcbarry1", (char*)"scr_alien_teleport", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Electric Box  ", [] {PTFXCALLO((char*)"scr_agencyheistb", (char*)"scr_agencyheistb", (char*)"scr_agency3b_elec_box", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Water splash  ", [] {PTFXCALLO((char*)"scr_fbi5a", (char*)"scr_fbi5a", (char*)"scr_fbi5_ped_water_splash", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Banknotes ", [] {PTFXCALLO((char*)"scr_ornate_heist", (char*)"scr_ornate_heist", (char*)"scr_heist_ornate_banknotes", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Truck Crash ", [] {PTFXCALLO((char*)"scr_fbi4", (char*)"scr_fbi4", (char*)"scr_fbi4_trucks_crash", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Blood  ", [] {PTFXCALLO((char*)"scr_michael2", (char*)"scr_michael2", (char*)"scr_mich2_blood_stab", PLAYER::PLAYER_ID()); }, "");
+		AddOption("blood 2 ", [] {PTFXCALLO((char*)"scr_finalec2", (char*)"scr_finalec2", (char*)"scr_finale2_blood_entry", PLAYER::PLAYER_ID()); }, "");
+
+		AddOption("Bubbles ", [] {PTFXCALLO((char*)"scr_fbi5a", (char*)"scr_fbi5a", (char*)"water_splash_ped_bubbles", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Sniper Impact ", [] {PTFXCALLO((char*)"scr_martin1", (char*)"scr_martin1", (char*)"scr_sol1_sniper_impact", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Dirt ", [] {PTFXCALLO((char*)"core_snow", (char*)"core_snow", (char*)"cs_mich1_spade_dirt_throw", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Dirt 2 ", [] {PTFXCALLO((char*)"scr_reburials", (char*)"scr_reburials", (char*)"scr_burial_dirt", PLAYER::PLAYER_ID()); }, "");
+
+		AddOption("Smoke Meth ", [] {PTFXCALLO((char*)"scr_familyscenem", (char*)"scr_familyscenem", (char*)"scr_meth_pipe_smoke", PLAYER::PLAYER_ID()); }, "");
+		AddOption("FBI SMOKE ", [] {PTFXCALLO((char*)"scr_agencyheist", (char*)"scr_agencyheist", (char*)"scr_fbi_dd_breach_smoke", PLAYER::PLAYER_ID()); }, "");
+		AddOption("Ped SLiced ", [] {PTFXCALLO((char*)"scr_michael2", (char*)"scr_michael2", (char*)"scr_abattoir_ped_sliced", PLAYER::PLAYER_ID()); }, "");
+
+	
+	}
+
+	void animations() {
+		AddTitle("Animations");
+		AddOption("Reset Animations", [] {TASK::CLEAR_PED_TASKS(PLAYER::PLAYER_PED_ID()); TASK::CLEAR_PED_TASKS_IMMEDIATELY(PLAYER::PLAYER_PED_ID()); },"");
+		AddOption("Kill Animation", [] { AI::CLEAR_PED_TASKS_IMMEDIATELY(PLAYER::PLAYER_PED_ID()); }, "");
+
+		AddString("SWITCH PAGE:", page[pages], &page, 0, 3, "Switch between pages");
+
+
+		switch (page) {
+
+		case 1:
+			AddOption("Sex Recieve", [] { PlayerAnimation((char*)"rcmpaparazzo_2", (char*)"shag_loop_poppy"); }, "");
+			AddOption("Sex Give", [] {  PlayerAnimation((char*)"rcmpaparazzo_2", (char*)"shag_loop_a"); }, "");
+			AddOption("Stripper Dance", [] { PlayerAnimation((char*)"mini@strip_club@private_dance@part1", (char*)"priv_dance_p1");  }, "");
+			AddOption("Pole Dance", [] { PlayerAnimation((char*)"mini@strip_club@pole_dance@pole_dance1", (char*)"pd_dance_01"); }, "");
+			AddOption("Push Ups", [] { PlayerAnimation((char*)"amb@world_human_push_ups@male@base", (char*)"base"); }, "");
+			AddOption("Celebrate", [] { PlayerAnimation((char*)"rcmfanatic1celebrate", (char*)"celebrate"); }, "");
+			AddOption("Electrocution", [] { PlayerAnimation((char*)"ragdoll@human", (char*)"electrocute"); }, "");
+			AddOption("Drug Dealer", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_DRUG_DEALER_HARD", 0, true); }, "");
+			AddOption("Drink Coffee", [] {  TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_AA_COFFEE", 0, true); }, "");
+			AddOption("Instruments", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_MUSICIAN", 0, true); }, "");
+			AddOption("Andrew Tate", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_MUSCLE_FLEX", 0, true); }, "");
+			AddOption("Superhero", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_SUPERHERO", 0, true); }, "");
+			AddOption("Fishing", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_STAND_FISHING", 0, true); }, "");
+			AddOption("Fishing", [] {TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_STAND_FISHING", 0, true); }, "");
+			AddOption("Security", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_SECURITY_SHINE_TORCH", 0, true); }, "");
+			AddOption("Jogging", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_JOG_STANDING", 0, true); }, "");
+			AddOption("Binoculars", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_BINOCULARS", 0, true); }, "");
+			AddOption("Clipboard", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_CLIPBOARD", 0, true); }, "");
+
+
+			break;
+
+		case 2:
+				AddOption("Bench Press", [] {  AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS", 0, true); }, "");
+				AddOption("Chin Ups", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "PROP_HUMAN_MUSCLE_CHIN_UPS", 0, true); }, "");
+				AddOption("BBQ", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "PROP_HUMAN_BBQ", 0, true); }, "");
+				AddOption("Suicide", [] { PlayerAnimation((char*)"mp_suicide", (char*)"pistol"); }, "");
+				AddOption("Showering", [] { PlayerAnimation((char*)"mp_safehouseshower@male@", (char*)"male_shower_idle_b");  }, "");
+				AddOption("Leaf Blower", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_GARDENER_LEAF_BLOWER", 0, true); }, "");
+				AddOption("Film Shocking", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_MOBILE_FILM_SHOCKING", 0, true); }, "");
+				AddOption("Idle Cop", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_COP_IDLES", 0, true); }, "");
+				AddOption("Drinking", [] {  AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_DRINKING", 0, true); }, "");
+				AddOption("Golf Player", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_GOLF_PLAYER", 0, true); }, "");
+				AddOption("Welding", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_WELDING", 0, true); }, "");
+				AddOption("Smoking Pot", [] {  AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_SMOKING_POT", 0, true); }, "");
+				AddOption("Hammering", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_HAMMERING", 0, true); }, "");
+				AddOption("Tennis", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_TENNIS_PLAYER", 0, true); }, "");
+				AddOption("Drilling", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_CONST_DRILL", 0, true); }, "");
+				AddOption("Paparizzi", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_PAPARAZZI", 0, true); }, "");
+				AddOption("Paparizzi", [] { TASK::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_CLIPBOARD", 0, true); }, "");
+				AddOption("Leaf Blower", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_GARDENER_LEAF_BLOWER", 0, true); }, "");
+
+
+
+				break;
+
+			case 3:
+				AddOption("Superhero", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_SUPERHERO", 0, true); },"");
+				AddOption("Drug Dealer", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_DRUG_DEALER_HARD", 0, true); }, "");
+				AddOption("Drinking Coffee", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_AA_COFFEE", 0, true); }, "");
+				AddOption("Playing Instruments", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_MUSICIAN", 0, true); }, "");
+				AddOption("Flexing", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_MUSCLE_FLEX", 0, true); }, "");
+				AddOption("Jogging", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_JOG_STANDING", 0, true); }, "");
+				AddOption("Binoculars", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_BINOCULARS", 0, true); }, "");
+				AddOption("Clipboard", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_CLIPBOARD", 0, true); }, "");
+				AddOption("Security", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_SECURITY_SHINE_TORCH", 0, true); }, "");
+				AddOption("Hammering", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_HAMMERING", 0, true); }, "");
+				AddOption("Tennis", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_TENNIS_PLAYER", 0, true); }, "");
+				AddOption("Drilling", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_CONST_DRILL", 0, true); }, "");
+				AddOption("Drinking", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_DRINKING", 0, true); }, "");
+				AddOption("Golf Player", [] {AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_GOLF_PLAYER", 0, true); }, "");
+				AddOption("Welding", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_WELDING", 0, true); }, "");
+				AddOption("Smoking Pot", [] { AI::TASK_START_SCENARIO_IN_PLACE(PLAYER::PLAYER_PED_ID(), "WORLD_HUMAN_SMOKING_POT", 0, true); }, "");
+				
+				break;
+
+
+		}
+	
+
+
+	}
+
+
 	int weaponammotype = 0;
 	void sub::weapons() {
 		AddTitle("Weapon Options");
@@ -1331,6 +1832,232 @@ namespace sub{
 		}}, "");
 		AddOption("Teleport into personal vehicle", [] {Vehicle veh = big::mobile::mechanic::get_personal_vehicle(); teleport::into_vehicle(veh); }, "");
 
+
+		char* teleportLocs[]{ "Far Away", "Online", "Exploration", "SP Locations", "Activities", "IPLS", "Shops", "High Up" };
+		AddString("Locations", teleportLocs[teleString], &teleString, 0, 7, "");
+		switch (teleString) {
+		case 0:
+			AddOption("Out to the sea", [] {teleport::to_coords2(1845.673f, -13787.4884f, 0.0000f); }, "");
+			AddOption("Your own Island", [] {teleport::to_coords2(-2159.147f, 5196.89f, 20.00f); }, "");
+			AddOption("Under da Map", [] {teleport::to_coords2(132.1470f, -739.5430f, 39.00f); }, "*hums under da sea to self*");
+			AddOption("Far Away Beach", [] {teleport::to_coords2(178.3295f, 7041.8220f, 1.8671f); }, "");
+			AddOption("On top of a lighthouse", [] {teleport::to_coords2(3433.6570f, 5175.4090f, 35.8053f); }, "");
+			AddOption("Building Glitch", [] {teleport::to_coords2(-11.5143f, -691.2623f, 54.7947f); }, "");
+			break;
+		case 1:
+			AddOption("500k Apartment", [] {teleport::to_coords2(-793.36f, 296.86f, 87.84f); }, "");
+			AddOption("500k Garage", [] {teleport::to_coords2(-795.4600f, 308.8900f, 85.7100f); }, "");
+			AddOption("Mors Mutual Impound", [] {teleport::to_coords2(408.923f, -1633.860f, 30.29f); }, "");
+			AddOption("Car Impound", [] {teleport::to_coords2(391.4746f, -1637.9750f, 29.3153f); }, "");
+			AddOption("Prison", [] {teleport::to_coords2(1679.0490f, 2513.7110f, 45.5649f); }, "");
+			AddOption("Prison Gym", [] {teleport::to_coords2(1640.7910f, 2530.0440f, 45.5649f); }, "");
+			break;
+		case 2:
+			AddOption("Fort Zancudo", [] {teleport::to_coords2(-2012.8470f, 2956.5271f, 32.8101f); }, "");
+			AddOption("Coral Reef", [] {teleport::to_coords2(106.6972f, 7282.0550f, 1.8821f); }, "");
+			AddOption("Dirtbike Trail", [] {teleport::to_coords2(-1202.0910f, 2802.4400f, 14.8256f); }, "");
+			AddOption("Zancudo River", [] {teleport::to_coords2(-558.9814f, 2945.7010f, 14.5917f); }, "");
+			AddOption("On top of Waterfall", [] {teleport::to_coords2(-540.4822f, 4402.3590f, 34.3786f); }, "");
+			AddOption("Water Fountain", [] {teleport::to_coords2(-104.8196f, -856.3741f, 41.0868f); }, "");
+			AddOption("Del-Perro Pier", [] {teleport::to_coords2(-1600.0930f, -1041.8920f, 13.0209f); }, "");
+			AddOption("Land Act Dam", [] {teleport::to_coords2(1655.8130f, 0.8890f, 173.7747f); }, "");
+			AddOption("Jetski Pier", [] {teleport::to_coords2(-1624.1540f, -1165.0890f, 2.0955f); }, "");
+			AddOption("Mountain Creek", [] {teleport::to_coords2(2559.2640f, 6184.1520f, 162.7809f); }, "");
+			AddOption("Mount Josiah", [] {teleport::to_coords2(-1189.1070f, 3849.7530f, 489.0641f); }, "");
+			break;
+		case 3:
+			AddOption("Trevor's Office (Strip Club)", [] {teleport::to_coords2(97.2707f, -1290.9940f, 29.2688f); }, "");
+			AddOption("Trevor's Air Field", [] {teleport::to_coords2(1740.4960f, 3269.2570f, 41.6014f); }, "");
+			AddOption("Trevor's House", [] {teleport::to_coords2(1974.7580f, 3819.4570f, 33.4363f); }, "");
+			AddOption("Trevor's Meth Lab", [] {teleport::to_coords2(1397.5240f, 3607.4230f, 38.9419f); }, "");
+			AddOption("Michael's House", [] {teleport::to_coords2(-813.6030f, 179.4738f, 72.1589f); }, "");
+			AddOption("Franklin's House (New)", [] {teleport::to_coords2(7.4150f, 535.5486f, 176.0279f); }, "");
+			AddOption("Franklin's House (Old)", [] {teleport::to_coords2(-14.9693f, -1436.4430f, 31.1185f); }, "");
+			break;
+		case 4:
+			AddOption("Bike Race", [] {teleport::to_coords2(2124.5260f, 1668.7090f, 96.2708f); }, "");
+			AddOption("Land Race", [] {teleport::to_coords2(2678.6920f, 1341.6110f, 24.5118f); }, "");
+			AddOption("Parachuting", [] {teleport::to_coords2(496.2334f, 5527.2700f, 778.4734f); }, "");
+			AddOption("Deathmatch", [] {teleport::to_coords2(138.1327f, -1448.6800f, 29.2240f); }, "");
+			AddOption("Team Deathmatch", [] {teleport::to_coords2(361.7499f, -1957.4250f, 24.6453f); }, "");
+			break;
+		case 5:
+			//ipls here
+			AddOption("Cayo perico", [] {
+				
+				IPLS::CAYOPERICO(); 
+				Vector3 Coords;
+				Coords.x = 4892.064f; Coords.y = -4923.567; Coords.z = 3.500f;
+				teleport::to_coords(Coords);
+
+				}, "Burton");
+			AddOption("Yankton", [] {
+				
+				IPLS::YANKTON();
+				Vector3 Coords;
+				Coords.x = 3595.39673f; Coords.y = -4893.727f; Coords.z = 115.838394f;
+				teleport::to_coords(Coords);
+				
+				},"");
+			AddOption("Yacht", [] {
+				
+				if (STREAMING::IS_IPL_ACTIVE((char*)"smboat"))
+				{
+					STREAMING::IS_IPL_ACTIVE((char*)"smboat");
+					return;
+				}
+				STREAMING::REQUEST_IPL((char*)"smboat");
+				Vector3 Coords;
+				Coords.x = -2045.8f; Coords.y = -1031.2f; Coords.z = 11.9f;
+				teleport::to_coords(Coords);
+				
+				},"");
+
+			AddOption("Carrier", [] {
+				
+				IPLS::CARRIER();
+				Vector3 Coords;
+				Coords.x = 3069.330f; Coords.y = -4632.4f; Coords.z = 15.043f;
+				teleport::to_coords(Coords);
+				
+				},"");
+
+			AddOption("Sunken Ship", [] {
+
+				if (STREAMING::IS_IPL_ACTIVE((char*)"sunkcargoship"))
+				{
+					STREAMING::IS_IPL_ACTIVE((char*)"sunkcargoship");
+					return;
+				}
+				STREAMING::REQUEST_IPL((char*)"sunkcargoship");
+				Vector3 Coords;
+				Coords.x = -162.8918f; Coords.y = -2365.769f; Coords.z = 0.0f;
+				teleport::to_coords(Coords);
+				}, "");
+			AddOption("Hospital", [] {
+				if (STREAMING::IS_IPL_ACTIVE((char*)"RC12B_HospitalInterior"))
+				{
+					STREAMING::IS_IPL_ACTIVE((char*)"RC12B_HospitalInterior");
+					STREAMING::IS_IPL_ACTIVE((char*)"RC12B_Destroyed");
+					return;
+				}
+				STREAMING::REQUEST_IPL((char*)"RC12B_HospitalInterior");
+				STREAMING::REQUEST_IPL((char*)"RC12B_Destroyed");
+				Vector3 Coords;
+				Coords.x = 356.8f; Coords.y = -590.1f; Coords.z = 43.3f;
+				teleport::to_coords(Coords);
+				}, "");
+
+			AddOption("Farm", [] {
+				IPLS::FARM();
+
+				Vector3 Coords;
+				Coords.x = 2441.2f; Coords.y = 4968.5f; Coords.z = 51.7f;
+				teleport::to_coords(Coords);
+
+				}, "");
+			AddOption("Morgue", [] {
+				if (STREAMING::IS_IPL_ACTIVE((char*)"Coroner_Int_on"))
+				{
+					STREAMING::IS_IPL_ACTIVE((char*)"Coroner_Int_on");
+
+					return;
+				}
+				STREAMING::REQUEST_IPL((char*)"Coroner_Int_on");
+				Vector3 Coords;
+				Coords.x = 244.9f; Coords.y = -1374.7f; Coords.z = 39.5f;
+				teleport::to_coords(Coords);
+				}, "");
+			AddOption("Jewlery", [] {
+				if (STREAMING::IS_IPL_ACTIVE((char*)"jewel2fake"))
+				{
+					STREAMING::IS_IPL_ACTIVE((char*)"jewel2fake");
+					STREAMING::IS_IPL_ACTIVE((char*)"post_hiest_unload");
+					STREAMING::IS_IPL_ACTIVE((char*)"bh1_16_refurb");
+					return;
+				}
+				STREAMING::REQUEST_IPL((char*)"jewel2fake");
+				STREAMING::REQUEST_IPL((char*)"post_hiest_unload");
+				STREAMING::REQUEST_IPL((char*)"bh1_16_refurb");
+				Vector3 Coords;
+				Coords.x = -630.4f; Coords.y = -236.7f; Coords.z = 40.0f;
+				teleport::to_coords(Coords);
+				}, "");
+			AddOption("Life Invader Office", [] {
+				STREAMING::REQUEST_IPL((char*)"facelobby");
+				STREAMING::REQUEST_IPL((char*)"facelobbyfake");
+				Vector3 Coords;
+				Coords.x = -1047.9f; Coords.y = -233.0f; Coords.z = 39.0f;
+				teleport::to_coords(Coords);
+				}, "");
+
+
+
+			break;
+		case 6:
+			AddOption("Burton - Los Santos Customs", [] {teleport::to_coords2(-361.732f, -132.968f, 37.9515f); }, "Burton");
+			AddOption("Burton - Ponsonbys", [] {teleport::to_coords2(-149.828f, -307.939f, 37.8623f); }, "Burton");
+			AddOption("Cypress Flats - Ammunation", [] {teleport::to_coords2(814.976f, -2144.03f, 28.5611f); }, "Cypress Flats");
+			AddOption("Davis - Gasoline Store [14]", [] {teleport::to_coords2(-53.5097f, -1764.59f, 28.2464f); }, "Davis");
+			AddOption("Davis - Herr Kutz (Barber)", [] {teleport::to_coords2(128.629f, -1715.75f, 28.3319f); }, "Davis");
+			AddOption("Del Perro - Sub-Urban", [] {teleport::to_coords2(-1210.76f, -781.273f, 16.5507f); }, "Del Perro");
+			AddOption("Downtown Vinewood - 24/7 Store [9]", [] {teleport::to_coords2(373.249f, 317.598f, 102.658f); }, "Downtown Vinewood");
+			AddOption("Downtown Vinewood - Blazing Tattoo", [] {teleport::to_coords2(321.031f, 171.868f, 102.983f); }, "Downtown Vinewood");
+			AddOption("El Burro Heights - Tattoo Parlour", [] {teleport::to_coords2(1316.51f, 1648.6f, 51.4071f); }, "El Burro Heights");
+			AddOption("Hawick - Hair on Harwick (Barber)", [] {teleport::to_coords2(-30.678f, -136.889f, 56.2678f); }, "Hawick");
+			AddOption("Hawick - Sub-Urban", [] {teleport::to_coords2(133.319f, -199.826f, 53.6291f); }, "Hawick");
+			AddOption("La Mesa - Ammunation", [] {teleport::to_coords2(839.463f, -1020.11f, 26.7274f); }, "La Mesa");
+			AddOption("La Mesa - Los Santos Customs", [] {teleport::to_coords2(718.007f, -1089.42f, 21.6029f); }, "La Mesa");
+			AddOption("Little Seoul - Ammunation", [] {teleport::to_coords2(-662.182f, -949.493f, 21.5386f); }, "Little Seoul");
+			AddOption("Little Seoul - LTD Store/Car Wash", [] {teleport::to_coords2(-708.535f, -921.384f, 18.2758f); }, "Little Seoul");
+			AddOption("Mirror Park - Herr Kutz (Barber)", [] {teleport::to_coords2(1197.85f, -469.579f, 65.3589f); }, "Mirror Park");
+			AddOption("Mirror Park - Gasoline Store [18]", [] {teleport::to_coords2(1157.03f, -331.703f, 68.1191f); }, "Mirror Park");
+			AddOption("Morningwood - Ammunation", [] {teleport::to_coords2(-1323.37f, -392.401f, 35.7302f); }, "Morningwood");
+			AddOption("Morningwood - Liquor Store [12]", [] {teleport::to_coords2(-1504.4f, -385.354f, 39.7755f); }, "Morningwood");
+			AddOption("Murrieta Heights - Liquor Store [11]", [] {teleport::to_coords2(1146.74f, -982.816f, 45.3493f); }, "Murrieta Heights");
+			AddOption("Pillbox Hill - Ammunation", [] {teleport::to_coords2(16.3855f, -1124.18f, 28.0527f); }, "Pillbox Hill");
+			AddOption("Ammunation Gun Range", [] {teleport::to_coords2(22.153f, -1072.854f, 29.797f); }, "Pillbox Hill");
+			AddOption("Ammunation Office", [] {teleport::to_coords2(12.494f, -1110.130f, 29.797f); }, "Pillbox Hill");
+			AddOption("Richman - Store [15]", [] {teleport::to_coords2(-1819.4f, 785.192f, 137.174f); }, "Richman");
+			AddOption("Rockford Hills - Bob Mulet (Barber)", [] {teleport::to_coords2(-830.037f, -191.123f, 36.7017f); }, "Rockford Hills");
+			AddOption("Rockford Hills - Ponsonbys", [] {teleport::to_coords2(-715.54f, -170.697f, 36.0662f); }, "Rockford Hills");
+			AddOption("Strawberry - Benny's Customs", [] {teleport::to_coords2(-206.367f, -1302.21f, 30.5649f); }, "Strawberry");
+			AddOption("Strawberry - Car Wash", [] {teleport::to_coords2(53.9021f, -1391.88f, 28.651f); }, "Strawberry");
+			AddOption("Strawberry - Discount Store", [] {teleport::to_coords2(87.3876f, -1393.33f, 28.4515f); }, "Strawberry");
+			AddOption("Strawberry - Store [8]", [] {teleport::to_coords2(24.818f, -1357.46f, 28.5068f); }, "Strawberry");
+			AddOption("Textile City - Binco Clothing", [] {teleport::to_coords2(411.544f, -806.999f, 28.4231f); }, "Textile City");
+			AddOption("Vespucci - Hot Shave (Barbers)", [] {teleport::to_coords2(-1294.32f, -1117.05f, 6.64755f); }, "Vespucci");
+			AddOption("Vespucci - Kill Me plz xo", "37 Fucking Regions");
+			AddOption("Vespucci Beach - Mask Shop", [] {teleport::to_coords2(-1340.23f, -1279.64f, 4.12567f); }, "Vespucci Beach");
+			AddOption("Vespucci Canals - Binco Clothing", [] {teleport::to_coords2(-816.507f, -1084.84f, 11.0118f); }, "Vespucci Canals");
+			AddOption("Vespucci Canals - Store [17]", [] {teleport::to_coords2(-1230.51f, -897.825f, 12.1041f); }, "Vespucci Canals");
+			AddOption("Vespucci Canals - Tattoo Parlour", [] {teleport::to_coords2(-1157.99f, -1415.24f, 4.80859f); }, "Vespucci Canals");
+			break;
+		case 7:
+			AddOption("High in the sky", [] {teleport::to_coords2(-129.9f, 8130.8f, 6705.6f); }, "");
+			AddOption("Mount Chilliad View", [] {teleport::to_coords2(489.3171f, 5580.8870f, 792.8515f); }, "");
+			AddOption("IAA Roof", [] {teleport::to_coords2(134.085f, -637.859f, 262.851f); }, "");
+			AddOption("FIB Roof", [] {teleport::to_coords2(150.126f, -754.591f, 262.865f); }, "");
+			AddOption("FIB Top Floor", [] {teleport::to_coords2(135.733f, -749.216f, 258.152f); }, "");
+			AddOption("Maze Bank Roof", [] {teleport::to_coords2(-75.015f, -818.215f, 326.176f); }, "");
+			AddOption("Galileo Observatory Roof", [] {teleport::to_coords2(-438.804f, 1076.097f, 352.411f); }, "");
+			AddOption("Maze Bank Arena Roof", [] {teleport::to_coords2(-324.300f, -1968.545f, 67.002f); }, "");
+			AddOption("Satellite Dish Antenna", [] {teleport::to_coords2(2034.988f, 2953.105f, 74.602f); }, "");
+			AddOption("Windmill Top", [] {teleport::to_coords2(2026.677f, 1842.684f, 133.313f); }, "");
+			AddOption("Sandy Shores Building Site Crane", [] {teleport::to_coords2(1051.209f, 2280.452f, 89.727f); }, "");
+			AddOption("Rebel Radio", [] {teleport::to_coords2(736.153f, 2583.143f, 79.634f); }, "");
+			AddOption("Palmer-Taylor Power Station Chimney", [] {teleport::to_coords2(2732.931f, 1577.540f, 83.671f); }, "");
+			AddOption("Mile High Club", [] {teleport::to_coords2(-144.274f, -946.813f, 269.135f); }, "");
+			break;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 
 
@@ -1350,7 +2077,6 @@ namespace sub{
 		AddSubmenu("Player List", SUB::PLAYERLIST, "");
 		AddSubmenu("Lobby Options", SUB::LOBBY, "");
 		AddSubmenu("Recovery Options", SUB::RECOVERY, "");
-		AddSubmenu("Protections", SUB::PROTECTIONS,"");
 		AddToggle("No Idle Kick", &g->tunables.no_idle_kick,"");
 		//esp
 		//x button watchdogs
@@ -1494,7 +2220,7 @@ static void AddPlayerTest(const player_ptr& plyr, const char* name, Player playe
 		AddOption("Give Armour", [] {g_pickup_service->give_player_armour(g_player_service->get_selected()->id());},"");
 		AddOption("Give Weapons", [] {g_pickup_service->give_player_weapons(g_player_service->get_selected()->id()); },"");
 		AddOption("Give Ammo", [] {g_pickup_service->give_player_ammo(g_player_service->get_selected()->id());},"");
-		AddBreak("Misc","");
+		AddBreak("[Misc]","");
 		AddOption("Steal Outfit", [] {	ped::steal_outfit(
 			PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(g_player_service->get_selected()->id())
 		); },"");
@@ -1505,11 +2231,36 @@ static void AddPlayerTest(const player_ptr& plyr, const char* name, Player playe
 		AddOption("Explode Player", [] {
 			Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(selPlayer), true);
 			FIRE::ADD_EXPLOSION(pos.x, pos.y, pos.z, 1, 1000, 1, 0, 1, 0);
+}, "");
 
+		// /* exists headass
 
+	//	AddOption("Shitty Kick", [] {
+		//	//
+		//	Vector3 remotePos = ENTITY::GET_ENTITY_COORDS(PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(selPlayer), 0);
+//
+	//		ENTITY::FREEZE_ENTITY_POSITION(PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(selPlayer),true);
+	//		Object X = OBJECT::CREATE_OBJECT(3613262246, remotePos.x, remotePos.y, remotePos.z,true,false,false);
+	//		g_notification_service->push("Shit crash started", "Testing");
 
-			}, "");
+		//	entity.freeze_entity(PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(selPlayer), true)
+			//	local X = object.create_world_object(3613262246, player.get_player_coords(pid), true, false)
+				
+		//	auto test = std::chrono::microseconds(5s);
 
+		//	g_notification_service->push("Shit crash:", "Deleting obj");
+		//	script::get_current()->yield(test);		//	system.yield(50)
+			//	menu.notify("Deleting pizza")
+			//	entity.delete_entity(X)
+			//	system.yield(50)
+		///		menu.notify("Done")
+		//		end)
+	//		ENTITY::DELETE_ENTITY(&X);
+	//			script::get_current()->yield(test);		//	system.yield(50)
+	//			g_notification_service->push("Shit crash:", "Done");
+
+			
+	//		},"");
 
 
 	}

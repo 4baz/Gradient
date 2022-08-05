@@ -104,6 +104,10 @@ namespace big::teleport
 	{
 		PED::SET_PED_COORDS_KEEP_VEHICLE(self::ped, location.x, location.y, location.z + 1.f);
 	}
+	inline void to_coords2(float x,float y,float z)
+	{
+		PED::SET_PED_COORDS_KEEP_VEHICLE(self::ped, x, y, z + 1.f);
+	}
 
 	inline bool to_blip(int sprite, int color = -1)
 	{

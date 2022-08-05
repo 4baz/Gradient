@@ -49,8 +49,8 @@ namespace sub {
 	void player();
 	void weapons();
 	void teleport();
-	//void ptfx();
-//	void animations();
+	void ptfx();
+	void animations();
 	
 	void playerList();
 	void selplayer();

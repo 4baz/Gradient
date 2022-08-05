@@ -14,11 +14,11 @@ namespace big
 			looped::system_self_globals();
 			looped::system_update_pointers();
 
-			if (g_local_player != nullptr && !api::util::signed_in())
+			if (g_local_player != nullptr)
 			{
 				g_thread_pool->push([]
 				{
-					looped::api_login_session();
+				//	looped::api_login_session();
 				});
 			}
 			script::get_current()->yield();
