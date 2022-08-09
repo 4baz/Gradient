@@ -135,7 +135,7 @@ namespace big
 
 	void gui::script_func()
 	{
-		g_notification_service->push("Loaded Wirra-Way", fmt::format("Press F8 to open", ImGui::key_names[g->settings.hotkeys.menu_toggle]));
+		g_notification_service->push("Loaded 4baz's menu", fmt::format("Press F8 to open", ImGui::key_names[g->settings.hotkeys.menu_toggle]));
 		while (true)
 		{
 			g_gui.script_on_tick();

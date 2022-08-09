@@ -135,7 +135,7 @@ namespace big
 
 	class globals_service
 	{
-		const char* file_location = "\\WirraWayGTA\\globals.json";
+		const char* file_location = "\\4bazGTA\\globals.json";
 
 	public:
 		globals_service();

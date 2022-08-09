@@ -88,6 +88,9 @@ namespace big
 
 	void renderer::on_present()
 	{
+
+
+
 		if (g_gui.m_opened || enable_cursor)
 		{
 			ImGui::GetIO().MouseDrawCursor = true;
@@ -104,6 +107,7 @@ namespace big
 		ImGui::NewFrame();
 
 		g_gui.always_draw();
+		WWdxmain();
 
 		if (g_gui.m_opened)
 		{

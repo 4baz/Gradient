@@ -244,7 +244,8 @@ namespace sub{
 	char* pages[]{"Page1","Page2","Page3","Page4"};
 
 	//int playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-
+	int wheelpage = 0;
+	char* wheelspages[]{ "TUNER","SUV","SPORT","OFFROAD","HIGHEND","LOWRIDER","MUSCLE" };
 	void sub::lscustoms() {
 
 		DisplayHelpTextThisFrame("PRESS ENTER TO APPLY");
@@ -412,87 +413,633 @@ namespace sub{
 			break;
 		case 3:
 			
-			if (AddIntTEST("Muscle", &musclewheels, 0, 17, 1, ""))
-			{
+			AddString("Upgrade Type", wheelspages[wheelpage], &wheelpage, 0, 4, "Switch between upgrade types");
 
-				if (GetAsyncKeyState(VK_RETURN) & 1) {
-					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
-					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 1);
+			switch (wheelpage) {
+			case 1://muscle
+				if (AddOptionTEST("Classic Five", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 0, 0);
+					}));
+				if (AddOptionTEST("Dukes", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 1, 0);
+					}));
+				if (AddOptionTEST("Muscle Freak", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 2, 0);
+					}));
+				if (AddOptionTEST("Kracka", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 3, 0);
+					}));
+				if (AddOptionTEST("Azreal", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 4, 0);
+					}));
+				if (AddOptionTEST("Mecha", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 5, 0);
+					}));
+				if (AddOptionTEST("Black Top", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 6, 0);
+					}));
+				if (AddOptionTEST("Drag SPL", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 7, 0);
+					}));
+				if (AddOptionTEST("Revolver", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 8, 0);
+					}));
+				if (AddOptionTEST("Classic Rod", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 9, 0);
+					}));
+				if (AddOptionTEST("Spooner", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 11, 0);
+					}));
+				if (AddOptionTEST("Five Star", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 12, 0);
+					}));
+				if (AddOptionTEST("Old School", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 13, 0);
+					}));
+				if (AddOptionTEST("El Jefe", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 14, 0);
+					}));
+				if (AddOptionTEST("Mercenary", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 1);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 17, 0);
 
-					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, musclewheels, 0);
-				}
+					}));
 
-				
+				break;
+			case 2://low rider
+				if (AddOptionTEST("Flare", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 0, 0);
+					}));
+				if (AddOptionTEST("Wired", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 1, 0);
+					}));
+				if (AddOptionTEST("Triple Golds", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 2, 0);
+					}));
+				if (AddOptionTEST("Big Worm", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 3, 0);
+					}));
+				if (AddOptionTEST("Seven Fives", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 4, 0);
+					}));
+				if (AddOptionTEST("Split Six", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 5, 0);
+					}));
+				if (AddOptionTEST("Fresh Mesh", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 6, 0);
+					}));
+				if (AddOptionTEST("Lead Sled", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 7, 0);
+					}));
+				if (AddOptionTEST("Turbine", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 8, 0);
+					}));
+				if (AddOptionTEST("Super Fin", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 9, 0);
+					}));
+				if (AddOptionTEST("Classic Rod", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 10, 0);
+					}));
+				if (AddOptionTEST("Dollar", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 11, 0);
+					}));
+				if (AddOptionTEST("Dukes", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 12, 0);
+					}));
+				if (AddOptionTEST("Low Five", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 13, 0);
+					}));
+				if (AddOptionTEST("Gooch", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 2);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 14, 0);
+
+					}));
+				break;
+			case 3:
+				//Menu::DRAW_TEXTURE("shopui_title_clubhousemod", "shopui_title_clubhousemod", titlebox, 0.0800f, 0.21f, 0.090f, 0, 255, 255, 255, 255);
+
+				if (AddOptionTEST("Shadow", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 0, 0);
+					}));
+				if (AddOptionTEST("Hypher", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 1, 0);
+					}));
+				if (AddOptionTEST("Blade", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 2, 0);
+					}));
+				if (AddOptionTEST("Diamond", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 3, 0);
+					}));
+				if (AddOptionTEST("Supa Gee", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 4, 0);
+					}));
+				if (AddOptionTEST("Chromatic Z", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 5, 0);
+					}));
+				if (AddOptionTEST("Obey RS", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 7, 0);
+					}));
+				if (AddOptionTEST("GT Chrome", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 8, 0);
+					}));
+				if (AddOptionTEST("Cheetah RR", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 9, 0);
+					}));
+				if (AddOptionTEST("Solar", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 10, 0);
+					}));
+				if (AddOptionTEST("Split Ten", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 11, 0);
+					}));
+				if (AddOptionTEST("Dash VIP", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 12, 0);
+					}));
+				if (AddOptionTEST("LozSpeed Ten", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 13, 0);
+					}));
+				if (AddOptionTEST("Carbon Shadow", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 15, 0);
+					}));
+				if (AddOptionTEST("Carbon S Racer", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 7);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 19, 0);
+
+					}));
+
+				break;
+			case 4://suv
+				if (AddOptionTEST("Benefactor", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 1, 0);
+					}));
+				if (AddOptionTEST("Cosmo", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 2, 0);
+					}));
+				if (AddOptionTEST("Royal Six", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 4, 0);
+					}));
+				if (AddOptionTEST("Fagorme", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 5, 0);
+					}));
+				if (AddOptionTEST("Deluxe", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 6, 0);
+					}));
+				if (AddOptionTEST("Iced Out", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 7, 0);
+					}));
+				if (AddOptionTEST("Cognoscenti", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 8, 0);
+					}));
+				if (AddOptionTEST("Supernova", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 10, 0);
+					}));
+				if (AddOptionTEST("Obey RS", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 11, 0);
+					}));
+				if (AddOptionTEST("LozSpeed Baller", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 12, 0);
+					}));
+				if (AddOptionTEST("Extravaganzo", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 13, 0);
+					}));
+				if (AddOptionTEST("Split Six", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 14, 0);
+					}));
+				if (AddOptionTEST("Empowered", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 15, 0);
+					}));
+				if (AddOptionTEST("Sunrise", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 16, 0);
+					}));
+				if (AddOptionTEST("Dash VIP", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 3);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 17, 0);
+					}));
+				break;
+			case 5://offroad
+				//Menu::DRAW_TEXTURE("shopui_title_clubhousemod", "shopui_title_clubhousemod", titlebox, 0.0800f, 0.21f, 0.090f, 0, 255, 255, 255, 255);
+
+				if (AddOptionTEST("Raider", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 0, 0);
+					}));
+				if (AddOptionTEST("Mudslinger", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 1, 0);
+					}));
+				if (AddOptionTEST("Nevis", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 2, 0);
+					}));
+				if (AddOptionTEST("Cairngorm", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 3, 0);
+					}));
+				if (AddOptionTEST("Amazon", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 4, 0);
+					}));
+				if (AddOptionTEST("Challenger", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 5, 0);
+					}));
+				if (AddOptionTEST("Dune Basher", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 6, 0);
+					}));
+				if (AddOptionTEST("Five Star", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 7, 0);
+					}));
+				if (AddOptionTEST("Rock Crawler", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 8, 0);
+					}));
+				if (AddOptionTEST("Mil Spec Steelie", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 4);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 9, 0);
+					}));
+				break;
+
+			case 6:
+				if (AddOptionTEST("Cosmo", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 0, 0);
+					}));
+				if (AddOptionTEST("Super Mesh", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 1, 0);
+					}));
+				if (AddOptionTEST("Driftmeister", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 4, 0);
+					}));
+
+					if (AddOptionTEST("El Quatro", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 6, 0);
+						}));
+					if (AddOptionTEST("Dubbed", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 7, 0);
+						}));
+					if (AddOptionTEST("Slideways", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 9, 0);
+						}));
+					if (AddOptionTEST("Countersteer", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 12, 0);
+						}));
+					if (AddOptionTEST("Endo v.2 Dish", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 14, 0);
+						}));
+					if (AddOptionTEST("Choku-Dori", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 16, 0);
+						}));
+					if (AddOptionTEST("Chicane", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 17, 0);
+						}));
+					if (AddOptionTEST("Saisoku", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 18, 0);
+						}));
+					if (AddOptionTEST("Dished Eight", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 19, 0);
+						}));
+					if (AddOptionTEST("Battle VIII", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 22, 0);
+						}));
+					if (AddOptionTEST("Rally Master", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 5);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 23, 0);
+						}));
+					break;
+			case 7://sports
+				if (AddOptionTEST("Inferno", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 0, 0);
+				}));
+				if (AddOptionTEST("Deep Five", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 1, 0);
+				}));
+				if (AddOptionTEST("LozSpeed Mk. V", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 2, 0);
+				}));
+				if (AddOptionTEST("Diamond Cut", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 3, 0);
+				}));
+				if (AddOptionTEST("Feroci RR", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 5, 0);
+				}));
+				if (AddOptionTEST("FiftyNine", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 6, 0);
+				}));
+				if (AddOptionTEST("Synthetic Z", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 8, 0);
+				}));
+				if (AddOptionTEST("Organic Type 0", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 9, 0);
+				}));
+				if (AddOptionTEST("GT One", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 11, 0);
+				}));
+				if (AddOptionTEST("S Racer", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 15, 0);
+				}));
+				if (AddOptionTEST("Venum", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 16, 0);
+				}));
+				if (AddOptionTEST("Cosmo",[] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 17, 0);
+				}));
+				if (AddOptionTEST("Dash VIP", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 18, 0);
+				}));
+				if (AddOptionTEST("Ice Kid", [] {
+					int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+					VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+					VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+					VEHICLE::SET_VEHICLE_MOD(VehID, 23, 19, 0);
+					}));
+					if (AddOptionTEST("Split Six", [] {
+						int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+						VEHICLE::SET_VEHICLE_MOD_KIT(VehID, 0);
+						VEHICLE::SET_VEHICLE_WHEEL_TYPE(VehID, 0);
+						VEHICLE::SET_VEHICLE_MOD(VehID, 23, 24, 0);
+						}));
+
+
+				break;
 			}
+			//	playerVeh = 0ul;
 		
-			
-			if (AddIntTEST("LowRider", &lowriderwheels, 0, 14, 1, ""))
-			{
-				if (GetAsyncKeyState(VK_RETURN) & 1) {
-					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
-					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 2);
-
-					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, lowriderwheels, 0);
-				}
-				
-			}
-			if (AddIntTEST("High End", &highendwheels, 0, 19, 1, ""))
-			{
-				if (GetAsyncKeyState(VK_RETURN) & 1) {
-
-					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
-					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 7);
-
-					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, highendwheels, 0);
-				}
-			}
-			if (AddIntTEST("SUV", &suvwheels, 0, 17, 1, ""))
-			{
-				if (GetAsyncKeyState(VK_RETURN) & 1) {
-
-					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
-					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 3);
-
-					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, suvwheels, 0);
-				}
-			}
-			if (AddIntTEST("SUV", &offoradwheels, 0, 9, 1, ""))
-			{
-				if (GetAsyncKeyState(VK_RETURN) & 1) {
-
-					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
-					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 4);
-
-					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, offoradwheels, 0);
-				}
-			}
-			if (AddIntTEST("Tuner", &tunerwheels, 0, 23, 1, ""))
-			{
-				if (GetAsyncKeyState(VK_RETURN) & 1) {
-
-					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
-					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 5);
-
-					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, tunerwheels, 0);
-				}
-			}
-			if (AddIntTEST("Sports Wheels", &sportwheels, 0, 24, 1, ""))
-			{
-				if (GetAsyncKeyState(VK_RETURN) & 1) {
-
-					Vehicle playerVeh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-					VEHICLE::SET_VEHICLE_MOD_KIT(playerVeh, 0);
-					VEHICLE::SET_VEHICLE_WHEEL_TYPE(playerVeh, 0);
-
-					VEHICLE::SET_VEHICLE_MOD(playerVeh, 23, sportwheels, 0);
-				}
-			}
 
 
 			break;
@@ -1533,7 +2080,7 @@ namespace sub{
 		//AddSubmenu("Header", SUB::HEADER, "Change the header.");
 	//	AddSubmenu("Options", SUB::OPTIONS, "Change the options.");
 		AddSubmenu("Credits", SUB::CREDITS, "");
-		AddOption("Version 1.0.1","");
+		AddOption("Version: WW_1.2","");
 		//AddToggle("Gradients", &gradients, "Once toggled, cool fades will appear.");
 		AddToggle("Enable Penis!", &dev_penis, "fucking kill me");
 		AddInt("Penis X", &penisposx, 150, 5000, 100, "this is fucking stupid");
@@ -1619,7 +2166,7 @@ namespace sub{
 		DisplayHelpTextThisFrame("yo");
 
 		//DisplayHelpTextThisFrame("100% Legit");
-		AddTitle("Main Menu");
+		AddTitle("4ass");
 		AddSubmenu("Player Options", SUB::PLAYER, "");
 		AddSubmenu("Weapon Options", SUB::WEAPONS, "");
 		AddSubmenu("Vehicle Options", SUB::VEHICLE, "");
@@ -1628,13 +2175,13 @@ namespace sub{
 		AddSubmenu("Protections", SUB::PROTECTIONS, "");
 		AddSubmenu("Settings", SUB::SETTINGS, "");
 		AddBreak("Made with <3 by 4baz","");
-		AddOption("Press to join the Discord :)", [] {
-			
-			ShellExecute(0,0,L"https://discord.com/invite/2fwhZVbREv",0,0,SW_SHOW);
-			
-			} ,"");
+	//	AddOption("Press to join the Discord :)", [] {
+	//		
+	//		ShellExecute(0,0,L"https://discord.com/invite/2fwhZVbREv",0,0,SW_SHOW);
+	//		
+	//		} ,"");
 
-	//	AddSubmenu("Dev Options", SUB::DEVOPTIONS, "");
+		AddSubmenu("Dev Options", SUB::DEVOPTIONS, "");
 
 
 
@@ -2337,4 +2884,4 @@ static void AddPlayerTest(const player_ptr& plyr, const char* name, Player playe
 	}
 
 
-}
+	}

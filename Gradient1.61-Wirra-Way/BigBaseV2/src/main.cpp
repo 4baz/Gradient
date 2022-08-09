@@ -36,7 +36,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 					std::this_thread::sleep_for(1s);
 
 				std::filesystem::path base_dir = std::getenv("appdata");
-				base_dir /= "WirraWayGTA";
+				base_dir /= "4bazGTA";
 				auto file_manager_instance = std::make_unique<file_manager>(base_dir);
 
 				auto globals_instance = std::make_unique<menu_settings>(

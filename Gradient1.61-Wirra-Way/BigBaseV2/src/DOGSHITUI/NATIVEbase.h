@@ -154,8 +154,14 @@ void OpenMonitor();
 void ClosedMonitor();
 void submenuHandler();
 void main();
+void WWdxmain();
+
 
 extern bool AddIntTEST(const char* option, int* inttochange, int min, int max, int increments, const char* info);
+
+extern bool AddOptionTEST(const char* option, std::function<void()> function);
+
+
 
 void PTFXCALLO(char* call1, char* call2, char* name, Player target);
 void PlayerAnimation(char* anim, char* animid);

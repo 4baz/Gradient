@@ -327,14 +327,14 @@ void AddTitle(const char* title)
 {
 	//	drawGlare(0.827f, 0.1410f, 0.190f, 0.034f, 255, 255, 255);
 
-	drawText("Wirra-Way", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
+	drawText("4baz's menu", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
 	drawText(title, 0, mnux + secondTitleX, mnuy +secondTitleY, 0.35f, 0.35f, secondTitleRed, secondTitleGreen, secondTitleBlue, secondTitleOpacity, FALSE, FALSE);
 }
 
 //Adds a title with a certain colour
 void AddTitleColour(const char* title, int red, int green, int blue)
 {
-	drawText("Wirra-way", 1, mnux+0.827f, mnuy+0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, true, false);
+	drawText("4baz's menu", 1, mnux+0.827f, mnuy+0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, true, false);
 	drawText(title, 0, mnux+secondTitleX, mnuy+secondTitleY, 0.35f, 0.35f, red, green, blue, secondTitleOpacity, false, false);
 }
 void AddWeaponTitle(const char* title)
@@ -342,7 +342,7 @@ void AddWeaponTitle(const char* title)
 	//	drawGlare(0.827f, 0.1410f, 0.190f, 0.034f, 255, 255, 255);
 	drawSprite("shopui_title_gr_gunmod", "shopui_title_gr_gunmod", mnux+0.827f, mnuy+ 0.06f, 0.225f, 0.09f, 0, 255, 255, 255, bannerRect.A);
 
-	drawText("Wirra-Way", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
+	drawText("4baz's menu", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
 	drawText(title, 0, mnux+secondTitleX, mnuy+ secondTitleY, 0.35f, 0.35f, secondTitleRed, secondTitleGreen, secondTitleBlue, secondTitleOpacity, FALSE, FALSE);
 }
 void AddVehicleTitle(const char* title)
@@ -350,7 +350,7 @@ void AddVehicleTitle(const char* title)
 	//	drawGlare(0.827f, 0.1410f, 0.190f, 0.034f, 255, 255, 255);
 	drawSprite("shopui_title_clubhousemod", "shopui_title_clubhousemod", mnux+0.827f, mnuy+0.06f, 0.225f, 0.09f, 0, 255, 255, 255, bannerRect.A);
 
-	drawText("Wirra-Way", 1, mnux+0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
+	drawText("4baz's menu", 1, mnux+0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
 	drawText(title, 0, mnux+secondTitleX, mnuy+secondTitleY, 0.35f, 0.35f, secondTitleRed, secondTitleGreen, secondTitleBlue, secondTitleOpacity, FALSE, FALSE);
 }
 
@@ -531,6 +531,22 @@ void AddOption(const char* option, std::function<void()> function, const char* i
 	}
 
 }
+
+bool AddOptionTEST(const char* option, std::function<void()> function)
+{
+	AddOption(option, "");
+
+	//Checks if NUMPAD5 has been pressed and excecutes certain code.
+	if (currentOption == optionCount && GetAsyncKeyState(VK_RETURN) & 1) {
+		function();
+		PlayFrontendSound("SELECT");
+		return true;
+	}
+	return false;
+}
+
+
+
 void addrpOption(const char* option, int value, const char* info = NULL)
 {
 	AddOption(option, info);
@@ -1824,8 +1840,48 @@ void DisableControls()
 
 }
 
+int	test1 = 300;
+
+int test2 = 400;
+int test3 = 300;
+
+int test4 = 400;
+void WWdxmain() {
+	
+	ImGui::Begin("int value changer test thingy");
+	ImGui::Text("side menu pos X,Y");
+	ImGui::SliderInt("X###Xpos", &test1, 0, 1000);
+	ImGui::SliderInt("Y###Ypos", &test2, 0, 1000);
+	ImGui::SliderInt("Xf###Xfpos", &test3, 0, 1000);
+	ImGui::SliderInt("Yf###Yfpos", &test4, 0, 1000);
+	ImGui::End();
+
+
+	ImDrawList* MainMenu = ImGui::GetForegroundDrawList();
+
+	//first value is left, second is bottom, third is right, forth is top
+	//the way this works is that its each border of the rectangle 
+	MainMenu->AddRectFilled(ImVec2( 10 ,460), ImVec2( 350,80 ), IM_COL32(0, 0, 0, 150));//background
+//	ImDrawList* pinfo = ImGui::GetForegroundDrawList();
+	//imgui p info render 
+	// 
+	//pinfo->AddRectFilled(ImVec2(mnux +1350, mnuy+100), ImVec2(mnux+974, mnuy+ 620), IM_COL32(0, 0, 0, 150));//backgroundRect
+	//pinfo->AddRectFilled(ImVec2(mnux+1350, mnuy+20), ImVec2(mnux+974, mnuy+ 100), IM_COL32(81, 8, 126, 225));//bannerbackgroundRect
+	//pinfo->AddText(ImVec2(mnux+ 1100, mnuy+40), IM_COL32(255, 255, 255, 255),"PlayerNameHere");//title
+
+	//pinfo->AddText(ImVec2(mnux +990, mnuy+ 110), IM_COL32(255, 255, 255, 255), "Test Text");//first text so to print the rest do some maths so that its automatically further under
+
+
+
+
+
+
+
+
+}
 
 void main() {
+
 //	while (g_Running) {
 	//	big::WAIT(0);
 		//	static bool first_time = false;
@@ -1835,11 +1891,18 @@ void main() {
 		//	}
 	//	featureloop();
 		if (submenu != SUB::CLOSED) {
+
+			
+
 			OpenMonitor();
 			ResetVars();
 			submenuHandler();
 			DisableControls();
 			playerminiinfoondxtick;
+
+			//test rect drawing rr
+
+
 		}
 
 		else ClosedMonitor();

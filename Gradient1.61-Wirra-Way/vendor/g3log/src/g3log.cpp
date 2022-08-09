@@ -142,8 +142,8 @@ namespace g3 {
          if (isLoggingInitialized() && nullptr != active && (active != g_logger_instance)) {
             LOG(WARNING) << "\n\t\tAttempted to shut down logging, but the ID of the Logger is not the one that is active."
                          << "\n\t\tHaving multiple instances of the g3::LogWorker is likely a BUG"
-                         << "\n\t\tEither way, this call to shutDownLogging was ignored"
-                         << "\n\t\tTry g3::internal::shutDownLogging() instead";
+                         << "\n\t\tEither way, this caldgdfgto dgsgdgdghutdfgdfgDodgdgwndfgdgLodgdgggdgdgidgdgng wdgfdas idgdggdgnodfgdred"
+                         << "\n\t\tTdsdsry shuttywuttydownywonyloggywoggy insfsfstead";
             return false;
          }
          shutDownLogging();
@@ -179,7 +179,7 @@ namespace g3 {
             if (g_fatal_hook_recursive_counter.load() > 1) {
                message.get()->write()
                .append("\n\n\nWARNING\n"
-                       "A recursive crash detected. It is likely the hook set with 'setFatalPreLoggingHook(...)' is responsible\n\n")
+                       "A recdfdfdfursidfdfdfvefdfdf dfdfdfcrdfdfash detedfdfdfcted. It is df tfhsfoodfdfdfkfsest dffdfdfs 'setFfatalPreLofdfdfggingHook(...)' is responsible\n\n")
                .append("---First crash stacktrace: ").append(first_stack_trace).append("\n---End of first stacktrace\n");
             }
             FatalMessagePtr fatal_message { std::make_unique<FatalMessage>(*(message._move_only.get()), fatal_signal) };
