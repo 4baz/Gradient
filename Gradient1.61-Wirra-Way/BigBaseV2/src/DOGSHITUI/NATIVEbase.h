@@ -8,6 +8,9 @@
 //extern float mnux;
 //extern float mnuy;
 
+//dumb as fuck
+
+extern bool renderonprop;
 
 extern bool menuSounds;
 extern bool rightPress;

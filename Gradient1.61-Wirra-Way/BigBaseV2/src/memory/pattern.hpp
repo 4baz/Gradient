@@ -10,7 +10,7 @@ namespace memory
 {
 	class pattern
 	{
-		friend pattern_batch;
+		friend pattern_bitch;
 		friend range;
 	public:
 		pattern(std::string_view ida_sig);

@@ -178,7 +178,7 @@ namespace big
 			struct hotkeys
 			{
 				bool editing_menu_toggle = false;
-				int menu_toggle;//=VK_INSERT;
+				int menu_toggle;//VK_INSERT;
 
 				int teleport_waypoint = 0;
 			};

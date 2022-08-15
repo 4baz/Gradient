@@ -10,6 +10,11 @@
 #include "../../BigBaseV2/src/services/players/player_service.hpp"
 #include "script.hpp"
 
+//dumb as fuck
+
+bool renderonprop = false;
+
+
 using namespace big;
 
 #define mnux  g->menu.menux
@@ -234,6 +239,43 @@ void setupText(const char* text)
 void drawText(const char* text, int font, float x, float y, float scalex, float scaley, int r, int g, int b, int a, int position, bool outline)
 {
 	UI::SET_TEXT_FONT(font);
+//	UI::SET_TEXT_SCALE(scalex, scaley);
+	if (renderonprop) {
+		UI::SET_TEXT_SCALE(scalex * 0.3, scaley *0.3);
+
+	}
+	else {
+		UI::SET_TEXT_SCALE(scalex, scaley);
+
+	}
+	UI::SET_TEXT_COLOUR(r, g, b, a);
+	UI::SET_TEXT_WRAP(0.0f, 1.0f);
+	UI::SET_TEXT_DROPSHADOW(0, 0, 0, 0, 0);
+
+	if (position == 0 || position == 1)
+		UI::SET_TEXT_WRAP(0.0f, 1.0f);
+	else
+		UI::SET_TEXT_WRAP(0.0f, x);
+
+	if (position == 1)
+		UI::SET_TEXT_CENTRE(true);
+	else if (position == 2)
+		UI::SET_TEXT_RIGHT_JUSTIFY(true);
+
+	if (outline)
+		UI::SET_TEXT_OUTLINE();
+
+	UI::BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+	UI::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+
+	UI::END_TEXT_COMMAND_DISPLAY_TEXT(x, y, 0);
+}
+
+//NOT COOKED FUNCTION FOR DRAWING ON TV OMEGALUL
+/*
+void drawText(const char* text, int font, float x, float y, float scalex, float scaley, int r, int g, int b, int a, int position, bool outline)
+{
+	UI::SET_TEXT_FONT(font);
 	UI::SET_TEXT_SCALE(scalex, scaley);
 	UI::SET_TEXT_COLOUR(r, g, b, a);
 	UI::SET_TEXT_WRAP(0.0f, 1.0f);
@@ -258,10 +300,29 @@ void drawText(const char* text, int font, float x, float y, float scalex, float 
 	UI::END_TEXT_COMMAND_DISPLAY_TEXT(x, y,0);
 }
 
+
+
+
+*/
+
+
+
+
 void drawText2( char* text, int font, float x, float y, float scalex, float scaley, int r, int g, int b, int a, int position, bool outline)
 {
 	UI::SET_TEXT_FONT(font);
-	UI::SET_TEXT_SCALE(scalex, scaley);
+	//UI::SET_TEXT_SCALE(scalex, scaley);
+
+	if (renderonprop) {
+		UI::SET_TEXT_SCALE(scalex * 0.3, scaley * 0.3);
+
+	}
+	else {
+		UI::SET_TEXT_SCALE(scalex, scaley);
+
+	}
+
+
 	UI::SET_TEXT_COLOUR(r, g, b, a);
 	UI::SET_TEXT_WRAP(0.0f, 1.0f);
 	UI::SET_TEXT_DROPSHADOW(0, 0, 0, 0, 0);
@@ -310,7 +371,7 @@ void drawSpriteLayer(const char* Streamedtexture, const char* textureName, float
 
 	if (GRAPHICS::HAS_STREAMED_TEXTURE_DICT_LOADED(Streamedtexture))
 	{
-		GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(layer);
+	//	GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(layer);
 		GRAPHICS::DRAW_SPRITE(Streamedtexture, textureName, x, y, width, height, rotation, r, g, b, a,0,0);
 	}
 }
@@ -327,14 +388,14 @@ void AddTitle(const char* title)
 {
 	//	drawGlare(0.827f, 0.1410f, 0.190f, 0.034f, 255, 255, 255);
 
-	drawText("4baz's menu", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
+	drawText("4ass", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
 	drawText(title, 0, mnux + secondTitleX, mnuy +secondTitleY, 0.35f, 0.35f, secondTitleRed, secondTitleGreen, secondTitleBlue, secondTitleOpacity, FALSE, FALSE);
 }
 
 //Adds a title with a certain colour
 void AddTitleColour(const char* title, int red, int green, int blue)
 {
-	drawText("4baz's menu", 1, mnux+0.827f, mnuy+0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, true, false);
+	drawText("4ass", 1, mnux+0.827f, mnuy+0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, true, false);
 	drawText(title, 0, mnux+secondTitleX, mnuy+secondTitleY, 0.35f, 0.35f, red, green, blue, secondTitleOpacity, false, false);
 }
 void AddWeaponTitle(const char* title)
@@ -342,7 +403,7 @@ void AddWeaponTitle(const char* title)
 	//	drawGlare(0.827f, 0.1410f, 0.190f, 0.034f, 255, 255, 255);
 	drawSprite("shopui_title_gr_gunmod", "shopui_title_gr_gunmod", mnux+0.827f, mnuy+ 0.06f, 0.225f, 0.09f, 0, 255, 255, 255, bannerRect.A);
 
-	drawText("4baz's menu", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
+	drawText("4ass", 1, mnux+ 0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
 	drawText(title, 0, mnux+secondTitleX, mnuy+ secondTitleY, 0.35f, 0.35f, secondTitleRed, secondTitleGreen, secondTitleBlue, secondTitleOpacity, FALSE, FALSE);
 }
 void AddVehicleTitle(const char* title)
@@ -350,7 +411,7 @@ void AddVehicleTitle(const char* title)
 	//	drawGlare(0.827f, 0.1410f, 0.190f, 0.034f, 255, 255, 255);
 	drawSprite("shopui_title_clubhousemod", "shopui_title_clubhousemod", mnux+0.827f, mnuy+0.06f, 0.225f, 0.09f, 0, 255, 255, 255, bannerRect.A);
 
-	drawText("4baz's menu", 1, mnux+0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
+	drawText("4ass", 1, mnux+0.827f, mnuy+ 0.036f, 0.77f, 0.77f, bannerText.R, bannerText.G, bannerText.B, bannerText.A, TRUE, FALSE);
 	drawText(title, 0, mnux+secondTitleX, mnuy+secondTitleY, 0.35f, 0.35f, secondTitleRed, secondTitleGreen, secondTitleBlue, secondTitleOpacity, FALSE, FALSE);
 }
 
@@ -1057,14 +1118,36 @@ int optionPress()
 	else return 0;
 }
 
+Hash bruh(std::string str) {
+	std::string lowerNative = str;
+	transform(lowerNative.begin(), lowerNative.end(), lowerNative.begin(), tolower);
+	Hash num = 0;
+	const char* bytes = lowerNative.c_str();;
+	int length = strlen(bytes);
+	for (int i = 0; i < length; i++)
+	{
+		num += bytes[i];
+		num += num << 10;
+		num ^= num >> 6;
+	}
+	num += num << 3;
+	num ^= num >> 11;
+	return (num + (num << 15));
+}
 //Draws our header
 void drawHeader()
 {
+
+	
+		GRAPHICS::DRAW_RECT(mnux + 0.827f, mnuy + 0.06f, 0.225f, 0.09f, bannerRect.R, bannerRect.G, bannerRect.B, bannerRect.A, 0);
+
+	
+
+
 	//if (gradients)
 	//thia titlw only works wright with the custom openIV texture
 	//	drawSprite("commonmenu", "interaction_bgd", 0.827f, 0.06f, 0.225f, 0.09f, 0, bannerRect.R, bannerRect.G, bannerRect.B, bannerRect.A);
 	//else
-	GRAPHICS::DRAW_RECT(mnux+0.827f, mnuy+ 0.06f, 0.225f, 0.09f, bannerRect.R, bannerRect.G, bannerRect.B, bannerRect.A,0);
 }
 
 //Resets everything
@@ -1083,10 +1166,13 @@ void ResetVars()
 //Draws our background
 void DrawBackground()
 {
+	
+
+
 	if (optionCount > maxOptions) {
 
 		//Sets the layer of the background, so our sprites can go on top
-		GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
+//		GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
 		//Background
 		GRAPHICS::DRAW_RECT(mnux+MainBackGroundX, mnuy+(((maxOptions * 0.035f) / 2) + MainBackGroundY), MainBackGroundWidth, (maxOptions * 0.035f), background.R, background.G, background.B, background.A,0);
 
@@ -1098,7 +1184,7 @@ void DrawBackground()
 				GRAPHICS::DRAW_RECT(mnux+scrollerX, mnuy+((maxOptions * 0.035f) + scrollerY), MainBackGroundWidth, 0.035f, scrollerRed, scrollerGreen, scrollerBlue, scrollerOpacity,0);
 		}
 		else {
-			GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
+//			GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
 			if (gradients)
 				drawSprite("commonmenu", "gradient_nav", mnux+ scrollerX, mnuy+((currentOption * 0.035f) + scrollerY), 0.225f, 0.035f, 0, 255, 255, 255, 255);
 			else
@@ -1119,12 +1205,12 @@ void DrawBackground()
 	else {
 
 		//Set layer
-		GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
+	//	GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
 		//Background
 		GRAPHICS::DRAW_RECT(mnux+MainBackGroundX, mnuy+(((optionCount * 0.035f) / 2) + MainBackGroundY), MainBackGroundWidth, (optionCount * 0.035f), background.R, background.G, background.B, background.A,0);
 
 		//Scroller
-		GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
+	//	GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(1);
 		if (gradients)
 			drawSprite("commonmenu", "gradient_nav", mnux+ scrollerX, mnuy+((currentOption * 0.035f) + scrollerY), 0.225f, 0.035f, 0, 255, 255, 255, 255);
 		else
@@ -1684,8 +1770,16 @@ const char* CharKeyboard(const char* windowName, int maxInput, const char* defau
 //Our option counter, credits to Mafins.
 void optionCounter()
 {
+	if (renderonprop) {
+		UI::SET_TEXT_SCALE(0.35f * 0.3, 0.35f * 0.3);
+
+	}
+	else {
+		UI::SET_TEXT_SCALE(0.35f, 0.35f);
+	}
+
 	UI::SET_TEXT_FONT(0);
-	UI::SET_TEXT_SCALE(0.35f, 0.35f);
+	//UI::SET_TEXT_SCALE(0.35f, 0.35f);
 	UI::BEGIN_TEXT_COMMAND_DISPLAY_TEXT("CM_ITEM_COUNT");
 	UI::ADD_TEXT_COMPONENT_INTEGER(currentOption);
 	UI::ADD_TEXT_COMPONENT_INTEGER(optionCount);
@@ -1879,7 +1973,9 @@ void WWdxmain() {
 
 
 }
+const char* renda_hash[] = {"prop_big_cin_screen"	};
 
+const char* renda_name[] = {"cinscreen"	};
 void main() {
 
 //	while (g_Running) {
@@ -1892,7 +1988,25 @@ void main() {
 	//	featureloop();
 		if (submenu != SUB::CLOSED) {
 
-			
+			if (renderonprop) {
+
+
+				Any render_id = 0;
+				auto hash = bruh("prop_big_cin_screen");
+				char* render_name = "cinscreen";
+				if (!UI::IS_NAMED_RENDERTARGET_REGISTERED(render_name))
+					UI::REGISTER_NAMED_RENDERTARGET(render_name, false);
+				if (!UI::IS_NAMED_RENDERTARGET_LINKED(hash))
+					UI::LINK_NAMED_RENDERTARGET(hash);
+				if (UI::IS_NAMED_RENDERTARGET_REGISTERED(render_name))
+					render_id = UI::GET_NAMED_RENDERTARGET_RENDER_ID(render_name);
+
+				UI::SET_TEXT_RENDER_ID(render_id);
+				GRAPHICS::SET_SCRIPT_GFX_DRAW_ORDER(4);
+
+
+
+			}
 
 			OpenMonitor();
 			ResetVars();

@@ -2162,11 +2162,25 @@ namespace sub{
 
 	void sub::MainMenu()
 	{
+	
+		//	DisplayHelpTextThisFrame("Spawn a screen if needed");
 
-		DisplayHelpTextThisFrame("yo");
+		
+		DisplayHelpTextThisFrame("Yo!");
 
 		//DisplayHelpTextThisFrame("100% Legit");
 		AddTitle("4ass");
+		AddToggle("Render on prop",&renderonprop,"This is stupid as fuck");
+		AddOption("New tv prop", [] {
+			
+			auto hash = $("prop_big_cin_screen");
+			auto c = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), false);
+			STREAMING::REQUEST_MODEL(hash);
+			auto tv = OBJECT::CREATE_OBJECT(hash, c.x -40, c.y, c.z, 1, 1, 0);
+			ENTITY::SET_ENTITY_HEADING(tv, ENTITY::GET_ENTITY_HEADING(PLAYER::PLAYER_PED_ID()));
+			
+			
+			},"");
 		AddSubmenu("Player Options", SUB::PLAYER, "");
 		AddSubmenu("Weapon Options", SUB::WEAPONS, "");
 		AddSubmenu("Vehicle Options", SUB::VEHICLE, "");
@@ -2175,13 +2189,11 @@ namespace sub{
 		AddSubmenu("Protections", SUB::PROTECTIONS, "");
 		AddSubmenu("Settings", SUB::SETTINGS, "");
 		AddBreak("Made with <3 by 4baz","");
-	//	AddOption("Press to join the Discord :)", [] {
-	//		
-	//		ShellExecute(0,0,L"https://discord.com/invite/2fwhZVbREv",0,0,SW_SHOW);
-	//		
-	//		} ,"");
+	//	AddBreak("2fwhZVbREv", "");
 
-		AddSubmenu("Dev Options", SUB::DEVOPTIONS, "");
+	
+
+		AddSubmenu("Special Options", SUB::DEVOPTIONS, "");
 
 
 

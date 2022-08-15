@@ -107,7 +107,7 @@ namespace big
 		ImGui::NewFrame();
 
 		g_gui.always_draw();
-		WWdxmain();
+		//WWdxmain();
 
 		if (g_gui.m_opened)
 		{
